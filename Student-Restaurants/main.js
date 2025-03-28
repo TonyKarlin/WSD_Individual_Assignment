@@ -63,15 +63,17 @@ function searchBarHandler() {
 function showMap() {
   document.addEventListener('DOMContentLoaded', () => {
     const mapLink = document.getElementById('map-link');
-    const mainContainer = document.querySelector('.main-container');
+    const mainImg = document.querySelector('.image-container');
+    const mainContent = document.querySelector('.content');
+    const mainBtnContainer = document.querySelector('.main-button-container');
     const mapDiv = document.querySelector('#map');
-    console.log(mapDiv);
-    console.log(mainContainer);
 
     mapLink.addEventListener('click', (event) => {
       event.preventDefault();
 
-      mainContainer.style.display = 'none';
+      mainImg.style.display = 'none';
+      mainContent.style.display = 'none';
+      mainBtnContainer.style.display = 'none';
       mapDiv.style.display = 'block';
 
       setTimeout(() => {
