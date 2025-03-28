@@ -10,3 +10,15 @@ if (userName) {
 } else {
   console.error('Element with class "user-name" not found.');
 }
+
+userImgContainer.addEventListener('click', () => {
+  console.log('User image clicked');
+  window.location.href = 'profile.html';
+});
+
+const logo = document.querySelector('.logo img');
+
+logo.addEventListener('click', () => {
+  console.log('Logo clicked');
+  window.location.href = 'index.html';
+});

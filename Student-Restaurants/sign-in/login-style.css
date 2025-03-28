@@ -1,0 +1,115 @@
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 80%;
+  height: 100vh;
+  left: 10%;
+  position: fixed;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.9) 0%,
+    #292a2b 5%,
+    #292a2b 95%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid #0e0d0e;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+
+.logo img {
+  cursor: pointer;
+}
+
+.app-header h1 {
+  font-size: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: top-center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 100px);
+  background-color: #242424;
+}
+
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+}
+
+.sign-in-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.sign-in-container form input {
+  width: 40%;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+}
+
+.sign-in-container form button {
+  width: 10%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #6f757a;
+  color: white;
+  transition: box-shadow 0.15s ease-out;
+  transition-behavior: normal;
+  transition-timing-function: ease-out;
+  transition-delay: 0s;
+  transition-property: box-shadow;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sign-in-container form label {
+  align-self: flex-start;
+  margin-left: 29%;
+}
+
+.sign-in-container form button:hover {
+  background-color: #535658;
+  color: #641e64;
+}
+
+.sign-in-container p a:hover {
+  color: #641e64;
+}
