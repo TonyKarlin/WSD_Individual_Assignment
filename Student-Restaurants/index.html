@@ -5,63 +5,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="icon" type="image/x-icon" href="C:\Users\tontt\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\icon.png">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="C:\Users\tontt\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\icon.png"
+    />
     <link rel="stylesheet" href="stylesheet.css" />
     <script src="main.js" defer></script>
   </head>
   <body>
     <div class="app">
-        <header class="app-header">
-          <div class="logo">
-            <img href="index.html" src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\icon.png"" alt="Logo"
-            width="80" height="80" />
-          </div>
-          <div class="nav-bar">
-            <nav class="nav-menu">
-              <ul class="nav-list">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">In Map</a></li>
-                <li><a href="#">Contact Us</a></li>
-              </ul>
-            </nav>
-          </div>
-            <div class="user-profile">
-              <span class="user-img-container">
-              </span>
-              <span class="user-name">John Doe</span>
-          </div>
-        </header>
+      <header class="app-header">
+        <div class="logo">
+          <img href="index.html"
+          src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\icon.png""
+          alt="Logo" width="80" height="80" />
+        </div>
+        <div class="nav-bar">
+          <nav class="nav-menu">
+            <ul class="nav-list">
+              <li><a href="index.html" id="home-link">Home</a></li>
+              <li><a href="#" id="map-link">Map</a></li>
+              <li><a href="#" id="contact-link">Contact Us</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="user-profile">
+          <span class="user-img-container"> </span>
+          <span class="user-name">John Doe</span>
+        </div>
+      </header>
       <main class="application-main">
-          <aside class="app-sidebar">
-            <div class="sidebar-header">
-              <h2>Restaurants</h2>
-              <div class="sidebar-separator"></div>
-              <img id="search-icon" src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\search.png" alt="Search icon"
-              width="25" height="25" title="Search for a specific restaurant"/>
-            </div>
-            <div #class="restaurant-container">
-              <ul class="restaurant-items">
-                <li>List of restaurants</li>
-              </ul>
-            </div>
-          </aside>
+        <aside class="app-sidebar">
+          <div class="sidebar-header">
+            <h2>Restaurants</h2>
+            <div class="sidebar-separator"></div>
+            <img
+              id="search-icon"
+              src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\search.png"
+              alt="Search icon"
+              width="25"
+              height="25"
+              title="Search for a specific restaurant"
+            />
+          </div>
+          <div #class="restaurant-container">
+            <ul class="restaurant-items">
+              <li>List of restaurants</li>
+            </ul>
+          </div>
+        </aside>
         <div class="main-container">
-            <h1>Welcome to Student Restaurants</h1>
+          <h1>Welcome to Student Restaurants</h1>
           <div class="image-container">
-            <img src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\student_restaurant.jpg"
-             alt="Restaurant" width="500" height="300"/>
+            <img
+              src="C:\Users\tonyk\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\student_restaurant.jpg"
+              alt="Restaurant"
+              width="500"
+              height="300"
+            />
           </div>
           <div class="content">
             <p>
-              Explore a variety of student restaurants.
-              Enjoy discounted meals with Tuudo's student card.
+              Explore a variety of student restaurants. Enjoy discounted meals
+              with Tuudo's student card.
             </p>
-            <div class="main-button-container">
-              <p>Register or sign-in to search for the nearest restaurants and save up your favourites!</p>
-              <nav class="main-button-nav">
-                <a href="registration/register.html">Register</a>
-                <a href="sign-in/login.html">Sign In</a>
-              </nav>
+          </div>
+          <div class="main-button-container">
+            <p>
+              Register or sign-in to search for the nearest restaurants and save
+              up your favourites!
+            </p>
+            <nav class="main-button-nav">
+              <a href="registration/register.html">Register</a>
+              <a href="sign-in/login.html">Sign In</a>
+            </nav>
+          </div>
+          <div id="map" style="display: none"></div>
         </div>
       </main>
       <div class="footer-wrapper">

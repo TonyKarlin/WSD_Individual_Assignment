@@ -60,6 +60,33 @@ function searchBarHandler() {
   });
 }
 
+function showMap() {
+  document.addEventListener('DOMContentLoaded', () => {
+    const mapLink = document.getElementById('map-link');
+    const mainContainer = document.querySelector('.main-container');
+    const mapDiv = document.querySelector('#map');
+    console.log(mapDiv);
+    console.log(mainContainer);
+
+    mapLink.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      mainContainer.style.display = 'none';
+      mapDiv.style.display = 'block';
+
+      setTimeout(() => {
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '© OpenStreetMap contributors',
+        }).addTo(map);
+      }, 0);
+    });
+  });
+}
+
+showMap();
 createLocationLinks();
 personalizeUserImg();
 searchBarHandler();

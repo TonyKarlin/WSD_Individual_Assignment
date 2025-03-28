@@ -135,6 +135,7 @@ body {
   flex-direction: column;
   justify-content: top-center;
   align-items: center;
+  color: white;
   width: calc(100% - 250px);
   left: 250px;
 }
@@ -246,4 +247,9 @@ body {
 .close-icon {
   cursor: pointer;
   margin-bottom: 25px;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
 }
