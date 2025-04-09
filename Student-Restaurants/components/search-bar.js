@@ -19,7 +19,7 @@ const createSearchBar = () => {
   return searchInput;
 };
 
-const closeSearchBar = () => {
+const createCloseIcon = () => {
   const closeIcon = document.createElement('span');
   closeIcon.id = 'close-icon';
   closeIcon.innerHTML = '&#10005;';
@@ -39,7 +39,7 @@ const searchBarHandler = (elements) => {
   asideHeaderImg.addEventListener('click', () => {
     if (!asideHeader.querySelector('.search-input')) {
       const searchInput = createSearchBar();
-      const closeIcon = closeSearchBar();
+      const closeIcon = createCloseIcon();
 
       closeIcon.addEventListener('click', () => {
         searchInput.remove();
