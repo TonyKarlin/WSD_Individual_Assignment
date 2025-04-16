@@ -1,34 +1,10 @@
+import {displayRestaurants, getRestaurants} from './components/restaurants.js';
+import personalizeUserImg from './components/user.js';
 import showMap from './components/map.js';
 import {
   searchBarHandler,
   createSearchBarElements,
 } from './components/search-bar.js';
-
-const getUserName = () => {
-  return document.querySelector('.user-name');
-};
-
-function personalizeUserImg() {
-  if (getUserName()) {
-    const hElement = document.createElement('h2');
-    const firstLetter = getUserName()
-      .textContent.trim()
-      .charAt(0)
-      .toUpperCase();
-
-    const userImgContainer = document.querySelector('.user-img-container');
-    userImgContainer.innerHTML = '';
-
-    hElement.textContent = firstLetter;
-    userImgContainer.appendChild(hElement);
-
-    userImgContainer.addEventListener('click', () => {
-      window.location.href = 'profile.html';
-    });
-  } else {
-    console.error('Element with class "user-name" not found.');
-  }
-}
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -38,13 +14,20 @@ const logoNavigation = () => {
   });
 };
 
-const main = () => {
-  const searchElements = createSearchBarElements();
-  searchBarHandler(searchElements);
+const main = async () => {
+  try {
+    const searchElements = createSearchBarElements();
+    searchBarHandler(searchElements);
 
-  logoNavigation();
-  showMap();
-  personalizeUserImg();
+    await getRestaurants();
+    displayRestaurants();
+
+    logoNavigation();
+    showMap();
+    personalizeUserImg();
+  } catch (e) {
+    console.log('Main error: ', e);
+  }
 };
 
 main();

@@ -267,3 +267,24 @@ body {
   height: 300px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
 }
+
+.restaurant-table {
+  margin-top: 5px;
+}
+
+.restaurant-table tr {
+  padding: 5px 0 5px 0;
+  cursor: pointer;
+  border-bottom: solid 1px #242424;
+}
+
+.restaurant-rows th {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 5px;
+}
+
+.restaurant-highlight {
+  background-color: chartreuse;
+  font-weight: bold;
+}
