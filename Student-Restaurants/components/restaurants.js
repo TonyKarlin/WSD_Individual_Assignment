@@ -1,58 +1,50 @@
 'use strict';
-import fetchData from '../lib/utils.js';
+import {getRestaurants} from '../routes/routes.js';
 import {restaurantRow} from '../view/restaurant-elements.js';
-import {baseUrl} from '../lib/variables.js';
+import {displayMeals} from './meals.js';
 
 let restaurants = [];
 
-const getRestaurants = async () => {
+const displayRestaurants = async () => {
   try {
-    restaurants = await fetchData(`${baseUrl}/restaurants`);
-    return restaurants;
-  } catch (e) {
-    console.error(e);
-  }
-};
+    const response = await getRestaurants();
+    if (response) {
+      restaurants = response;
+    } else {
+      console.error('No restaurants found');
+    }
+    const table = document.querySelector('.restaurant-table');
 
-const getMenu = async (id, lang) => {
-  try {
-    return await fetchData(`${baseUrl}/restaurants/daily/${id}/${lang}`);
-  } catch (e) {
-    console.error(e);
-  }
-};
+    let previousHighlight;
 
-const displayRestaurants = () => {
-  console.log(restaurants);
-  const table = document.querySelector('.restaurant-table');
+    restaurants.forEach((restaurant) => {
+      const tr = restaurantRow(restaurant);
+      tr.addEventListener('click', async () => {
+        try {
+          if (previousHighlight === tr) {
+            tr.classList.remove('restaurant-highlight');
+            previousHighlight = null;
+            return;
+          }
 
-  let previousHighlight;
+          if (previousHighlight) {
+            previousHighlight.classList.remove('restaurant-highlight');
+          }
 
-  restaurants.forEach((restaurant) => {
-    const tr = restaurantRow(restaurant);
-    tr.addEventListener('click', async () => {
-      try {
-        if (previousHighlight === tr) {
-          tr.classList.remove('restaurant-highlight');
-          previousHighlight = null;
-          return;
+          tr.classList.add('restaurant-highlight');
+
+          await displayMeals(restaurant._id);
+
+          previousHighlight = tr;
+        } catch (e) {
+          console.log('highlight error', e);
         }
-
-        if (previousHighlight) {
-          previousHighlight.classList.remove('restaurant-highlight');
-        }
-
-        tr.classList.add('restaurant-highlight');
-
-        const menu = await getMenu(restaurant._id, 'fi');
-        console.log('menu', menu);
-        previousHighlight = tr;
-      } catch (e) {
-        console.log('highlight error', e);
-      }
+      });
+      table.append(tr);
     });
-    table.append(tr);
-  });
+  } catch (e) {
+    console.error('Error fetching restaurants:', e);
+  }
 };
 
-export {getRestaurants, displayRestaurants, restaurants};
+export {displayRestaurants, restaurants};

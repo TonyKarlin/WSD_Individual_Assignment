@@ -92,7 +92,7 @@ body {
   justify-content: right;
   align-items: center;
   height: auto;
-  margin-right: 5rem;
+  margin-right: 1rem;
 }
 
 .nav-menu {
@@ -200,6 +200,7 @@ body {
 .content p {
   color: white;
   font-size: 16px;
+  margin-bottom: 3rem;
 }
 
 .main-button-container {
@@ -232,81 +233,6 @@ body {
   color: #631a63;
 }
 
-.app-sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 5px;
-  width: calc(100% / 3);
-  background-color: #333;
-  color: white;
-  text-align: center;
-  border-right: 1px solid #0e0d0e;
-  border-left: 1px solid #0e0d0e;
-  border-radius: 5px;
-}
-
-.sidebar-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  height: 80px !important;
-  background-color: #292a2b;
-  border-bottom: 1px solid #0e0d0e;
-}
-
-.sidebar-header h2 {
-  margin-left: 0;
-  margin-right: 1.5rem;
-  text-align: center;
-  flex: 1;
-}
-
-/* .sidebar-separator {
-  width: 1px;
-  height: 80%;
-  background-color: #0e0d0e;
-  margin: 0 1rem 0 1rem;
-} */
-
-.search-img-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 3.8rem;
-  width: 65px;
-  height: 45px;
-  background-color: #292a2b;
-  border: solid 2px #161616;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.search-img-container:hover {
-  background-color: #232324;
-}
-
-#search-icon {
-  display: inline-block;
-  text-align: center;
-}
-
-/* #close-icon {
-  margin-bottom: 30px;
-  cursor: pointer;
-} */
-
-.sidebar-header .footer-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100px;
-  bottom: 0;
-  left: 10%;
-}
-
 .app-footer {
   width: 100%;
   height: 100px;
@@ -322,71 +248,9 @@ body {
   border-top: 1px solid #0e0d0e;
 }
 
-/* .close-icon {
-  cursor: pointer;
-  margin-bottom: 25px;
-  margin-right: auto;
-} */
-
-#map {
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.map-container {
-  margin-top: 3rem;
+.meals-table-body {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  width: 70%;
-}
-
-.search-input {
-  margin: 5rem;
-  padding: 5px;
-  text-align: center;
-  flex: 1;
-}
-
-.image-container {
-  border: solid 2px #202020;
-  width: 500px;
-  height: 300px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.restaurant-table {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 100vh;
-  padding: 8px 1rem 0 1rem;
-  border-collapse: collapse;
-}
-
-.restaurant-table tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  cursor: pointer;
-  font-size: 16px;
-  border-bottom: solid 2px #242424;
-}
-
-.restaurant-rows th {
-  text-align: center;
-  font-size: 16px;
-}
-
-.restaurant-table th,
-.restaurant-table td {
-  padding: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.restaurant-highlight {
-  background-color: #242424;
 }

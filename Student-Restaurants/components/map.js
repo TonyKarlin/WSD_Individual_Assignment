@@ -1,31 +1,35 @@
 'use strict';
+import getLocation from '../lib/location.js';
 
 const mapMarkers = new Map();
 let mapInstance = null;
+const location = await getLocation();
 
 const getMap = async () => {
-  mapInstance = L.map('map').setView([60.2144768, 25.0281984], 13);
+  try {
+    const {latitude, longitude} = location;
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap contributors',
-  }).addTo(mapInstance);
+    if (!mapInstance) {
+      mapInstance = L.map('map').setView([latitude, longitude], 13);
 
-  return mapInstance;
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors',
+      }).addTo(mapInstance);
+    }
+    return mapInstance;
+  } catch (e) {
+    console.error('Error: Failed to get location', e);
+
+    mapInstance = L.map('map').setView([60.1699, 24.9384], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors',
+    }).addTo(mapInstance);
+  }
 };
 
-const hideMainMenuElements = () => {
-  const elemsToHide = [
-    document.querySelector('.image-container'),
-    document.querySelector('.content'),
-    document.querySelector('.main-button-container'),
-    document.querySelector('.main-container h1'),
-  ];
-
-  elemsToHide.forEach((element) => {
-    element.style.display = 'none';
-  });
-};
+const nearestRestaurant = () => {};
 
 const addRestaurantsToMap = (restaurants) => {
   restaurants.forEach((restaurant) => {
@@ -40,23 +44,4 @@ const addRestaurantsToMap = (restaurants) => {
   });
 };
 
-const showMap = async () => {
-  const mapDiv = document.querySelector('#map');
-  const mapTitle = document.querySelector('#map-title');
-
-  if (!mapDiv) {
-    console.log('mapDiv', mapDiv);
-    return;
-  }
-
-  hideMainMenuElements();
-  mapDiv.style.display = 'block';
-  mapTitle.style.display = 'block';
-
-  if (!mapInstance) {
-    await getMap();
-  }
-  return mapInstance;
-};
-
-export {showMap, addRestaurantsToMap, getMap, mapInstance};
+export {addRestaurantsToMap, getMap};

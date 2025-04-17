@@ -1,17 +1,13 @@
-import {
-  displayRestaurants,
-  getRestaurants,
-  restaurants,
-} from './components/restaurants.js';
+import {displayRestaurants, restaurants} from './components/restaurants.js';
 import personalizeUserImg from './components/user.js';
-import {showMap, addRestaurantsToMap, mapInstance} from './components/map.js';
+import {addRestaurantsToMap, getMap} from './components/map.js';
 import {
   searchBarHandler,
   createSearchBarElements,
 } from './components/search-bar.js';
 import {langDDHandler} from './components/lang-icons.js';
-
-const mapLink = document.getElementById('map-link');
+import getLocation from './lib/location.js';
+import createCalendar from './view/calendar-elements.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -23,24 +19,24 @@ const logoNavigation = () => {
 
 const main = async () => {
   try {
+    getLocation();
     langDDHandler();
 
     const searchElements = createSearchBarElements();
     searchBarHandler(searchElements);
 
-    await getRestaurants();
-    displayRestaurants();
+    await displayRestaurants();
 
-    mapLink.addEventListener('click', async (event) => {
-      event.preventDefault();
-      const map = await showMap();
-      if (map) {
+    const map = await getMap();
+    if (map) {
+      if (!map.restaurantsAdded) {
         addRestaurantsToMap(restaurants);
-        console.log('resToMap');
-      } else {
-        console.error('Map not initialized');
+        map.restaurantsAdded = true;
       }
-    });
+    } else {
+      console.error('Map not initialized');
+    }
+    createCalendar();
 
     logoNavigation();
     personalizeUserImg();
