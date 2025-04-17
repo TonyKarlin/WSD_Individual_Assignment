@@ -27,9 +27,9 @@ const getDailyMeals = async (restaurantId, lang) => {
   }
 };
 
-const getWeeklyMeals = async (restaurantId) => {
+const getWeeklyMeals = async (restaurantId, lang) => {
   const menu = await fetchData(
-    `${baseUrl}/restaurants/weekly/${restaurantId}/${getLanguage()}`
+    `${baseUrl}/restaurants/weekly/${restaurantId}/${lang}`
   );
   if (menu) {
     console.log('Manu', menu);

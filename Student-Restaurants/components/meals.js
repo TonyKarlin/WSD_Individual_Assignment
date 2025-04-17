@@ -18,4 +18,26 @@ const displayMeals = async (restaurantId) => {
   createMealsTable(meals);
 };
 
-export {displayMeals};
+const updateCalendarWithMenu = (weeklyMenu) => {
+  const calendarDays = document.querySelectorAll('.calendar-day');
+
+  calendarDays.forEach((dayElement) => {
+    const day = dayElement.innerText.toLowerCase(); // Get the day (e.g., 'mon', 'tue')
+    const menuForDay = weeklyMenu[day]; // Get menu for the specific day
+
+    if (menuForDay) {
+      dayElement.innerHTML = `<strong>${
+        day.charAt(0).toUpperCase() + day.slice(1)
+      }</strong>`;
+
+      calendarDays.forEach((meal) => {
+        const mealElement = document.createElement('div');
+        mealElement.className = 'menu-item';
+        mealElement.innerText = `${meal.name} (${meal.price} €)`;
+        dayElement.appendChild(mealElement);
+      });
+    }
+  });
+};
+
+export {displayMeals, updateCalendarWithMenu};

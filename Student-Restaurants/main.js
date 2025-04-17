@@ -7,7 +7,6 @@ import {
 } from './components/search-bar.js';
 import {langDDHandler} from './components/lang-icons.js';
 import getLocation from './lib/location.js';
-import initializeCalendar from './lib/date.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -21,7 +20,6 @@ const main = async () => {
   try {
     getLocation();
     langDDHandler();
-    initializeCalendar();
 
     const searchElements = createSearchBarElements();
     searchBarHandler(searchElements);
