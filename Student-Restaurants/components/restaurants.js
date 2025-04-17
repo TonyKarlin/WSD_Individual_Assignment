@@ -55,4 +55,4 @@ const displayRestaurants = () => {
   });
 };
 
-export {getRestaurants, displayRestaurants};
+export {getRestaurants, displayRestaurants, restaurants};
