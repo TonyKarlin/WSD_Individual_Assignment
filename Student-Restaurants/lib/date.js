@@ -17,7 +17,6 @@ const highlightTodayInCalendar = () => {
     if (dayElement.innerText.toLowerCase() === todayWeekDay) {
       dayElement.innerText = 'Today';
       dayElement.style.backgroundColor = '#181818';
-      dayElement.style.color = '#ffffff';
     }
   });
 };
