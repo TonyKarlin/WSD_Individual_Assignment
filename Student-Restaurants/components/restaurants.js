@@ -32,6 +32,12 @@ const displayRestaurants = () => {
     const tr = restaurantRow(restaurant);
     tr.addEventListener('click', async () => {
       try {
+        if (previousHighlight === tr) {
+          tr.classList.remove('restaurant-highlight');
+          previousHighlight = null;
+          return;
+        }
+
         if (previousHighlight) {
           previousHighlight.classList.remove('restaurant-highlight');
         }
@@ -39,6 +45,7 @@ const displayRestaurants = () => {
         tr.classList.add('restaurant-highlight');
 
         const menu = await getMenu(restaurant._id, 'fi');
+        console.log('menu', menu);
         previousHighlight = tr;
       } catch (e) {
         console.log('highlight error', e);

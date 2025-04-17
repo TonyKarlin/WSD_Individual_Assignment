@@ -18,6 +18,10 @@
     ></script>
     <link rel="icon" type="image/x-icon" href="resources\icon.png" />
     <link rel="stylesheet" href="stylesheet.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"
+    />
     <script src="main.js" type="module"></script>
   </head>
   <body>
@@ -36,6 +40,11 @@
             </ul>
           </nav>
         </div>
+        <div class="lang">
+          <span id="lang-icon" class="fi fi-gb"></span>
+          <p>▼</p>
+          <div class="lang-dropdown" style="display: none;"></div>
+        </div>
         <div class="user-profile">
           <span class="user-img-container"> </span>
           <span class="user-name">John Doe</span>
@@ -45,7 +54,8 @@
         <aside class="app-sidebar">
           <div class="sidebar-header">
             <h2>Restaurants</h2>
-            <div class="sidebar-separator"></div>
+            <!-- <div class="sidebar-separator"></div> -->
+             <div class="search-img-container">
             <img
               id="search-icon"
               src="resources\search.png"
@@ -54,13 +64,17 @@
               height="25"
               title="Search for a specific restaurant"
             />
+            </div>
           </div>
+          <div class="table-contai">
           <table class="restaurant-table">
             <tr class="restaurant-rows">
               <th>Name</th>
               <th>Location</th>
+              <th>Company</th>
             </tr>
           </table>
+        </div>
         </aside>
         <div class="main-container">
           <h1>Welcome to Student Restaurants</h1>
@@ -88,6 +102,9 @@
               <a href="sign-in/login.html">Sign In</a>
             </nav>
           </div>
+          <div class="map-container">
+            <h2 id="map-title" style="display: none;">Find Restaurants on the Map</h2>
+            <div id="map" style="width: 100%; height: 500px;"></div>
           <div id="map" style="display: none"></div>
         </div>
       </main>

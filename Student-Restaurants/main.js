@@ -5,6 +5,7 @@ import {
   searchBarHandler,
   createSearchBarElements,
 } from './components/search-bar.js';
+import {langDDHandler} from './components/lang-icons.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -16,6 +17,8 @@ const logoNavigation = () => {
 
 const main = async () => {
   try {
+    langDDHandler();
+
     const searchElements = createSearchBarElements();
     searchBarHandler(searchElements);
 
@@ -24,6 +27,7 @@ const main = async () => {
 
     logoNavigation();
     showMap();
+    console.log('map');
     personalizeUserImg();
   } catch (e) {
     console.log('Main error: ', e);

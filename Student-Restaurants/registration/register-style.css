@@ -110,6 +110,11 @@ body {
   color: #641e64;
 }
 
+.register-container p a {
+  color: rgb(22, 86, 158);
+  text-underline-offset: 2px;
+}
+
 .register-container p a:hover {
-  color: #641e64;
+  color: #631a63;
 }
