@@ -5,7 +5,7 @@ import {defaultIcon, mapInstance, mapMarkers, selectedIcon} from './map.js';
 
 let restaurants = [];
 let selectedRestaurant = null;
-let previousHighlightedRow = null;
+let previousHighlight;
 
 const displayRestaurants = async () => {
   try {
@@ -17,7 +17,7 @@ const displayRestaurants = async () => {
     }
     const table = document.querySelector('.restaurant-table');
 
-    let previousHighlight;
+    // let previousHighlight;
 
     restaurants.forEach((restaurant) => {
       const tr = restaurantRow(restaurant);
@@ -66,16 +66,16 @@ const displayRestaurants = async () => {
 
 const highlightRestaurantRow = (restaurantId) => {
   const row = document.querySelector(`[data-id="${restaurantId}"]`);
-  if (previousHighlightedRow) {
-    previousHighlightedRow.classList.remove('restaurant-highlight');
+  if (previousHighlight) {
+    previousHighlight.classList.remove('restaurant-highlight');
   }
   if (row) {
     row.classList.add('restaurant-highlight');
-    previousHighlightedRow = row;
+    previousHighlight = row;
 
     row.scrollIntoView({
-      behavior: 'smooth', // Smooth scrolling animation
-      block: 'center', // Center the row in the visible area
+      behavior: 'smooth',
+      block: 'center',
     });
   }
 };
