@@ -52,9 +52,12 @@ const addRestaurantsToMap = (restaurants) => {
     const coords = restaurant.location.coordinates;
     const latitude = coords[1];
     const longitude = coords[0];
-    const marker = L.marker([latitude, longitude], {icon: defaultIcon})
-      .addTo(mapInstance)
-      .bindPopup(`<h4>${restaurant.name}</h4>`);
+    const marker = L.marker([latitude, longitude], {icon: defaultIcon}).addTo(
+      mapInstance
+    ).bindPopup(`<h4>${restaurant.name}</h4>
+        <p>${restaurant.address}, ${restaurant.postalCode}</p>
+        <p>${restaurant.city}</p>
+        `);
 
     marker.on('click', () => {
       mapMarkers.forEach((m) => {
