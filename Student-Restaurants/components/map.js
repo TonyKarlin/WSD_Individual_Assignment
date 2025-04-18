@@ -45,31 +45,41 @@ const getMap = async () => {
   }
 };
 
+const resetMarkers = () => {
+  mapMarkers.forEach((marker) => {
+    marker.setIcon(defaultIcon);
+  });
+};
+
+const selectMarker = (marker, restaurant) => {
+  resetMarkers();
+  marker.setIcon(selectedIcon);
+  selectedRestaurant = restaurant;
+  highlightRestaurantRow(restaurant._id);
+  console.log('Selected restaurant from map:', selectedRestaurant);
+};
+
+const animateToSelectedMarker = (marker) => {
+  mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
+    animate: true,
+    duration: 0.5,
+  });
+};
+
 const addRestaurantsToMap = (restaurants) => {
   restaurants.forEach((restaurant) => {
-    const coords = restaurant.location.coordinates;
-    const latitude = coords[1];
-    const longitude = coords[0];
-    const marker = L.marker([latitude, longitude], {icon: defaultIcon}).addTo(
-      mapInstance
-    ).bindPopup(`<h4>${restaurant.name}</h4>
+    const [longitude, latitude] = restaurant.location.coordinates;
+    const marker = L.marker([latitude, longitude], {icon: defaultIcon})
+      .addTo(mapInstance)
+      .bindPopup(
+        `<h4>${restaurant.name}</h4>
         <p>${restaurant.address}, ${restaurant.postalCode}</p>
-        <p>${restaurant.city}</p>
-        `);
+        <p>${restaurant.city}</p>`
+      );
 
     marker.on('click', () => {
-      mapMarkers.forEach((m) => {
-        m.setIcon(defaultIcon);
-      });
-      marker.setIcon(selectedIcon);
-
-      selectedRestaurant = restaurant;
-      highlightRestaurantRow(restaurant._id);
-      console.log('Selected restaurant from map:', selectedRestaurant);
-      mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
-        animate: true, // Smooth animation
-        duration: 0.5, // Animation duration (in seconds)
-      });
+      selectMarker(marker, restaurant);
+      animateToSelectedMarker(marker);
     });
 
     mapMarkers.set(restaurant._id, marker);
@@ -79,14 +89,9 @@ const addRestaurantsToMap = (restaurants) => {
 const focusOnRestaurant = (restaurant) => {
   const marker = mapMarkers.get(restaurant._id);
   if (marker) {
-    mapMarkers.forEach((m) => m.setIcon(defaultIcon));
-    marker.setIcon(selectedIcon);
+    selectMarker(marker, restaurant);
     marker.openPopup();
-
-    mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
-      animate: true,
-      duration: 0.5,
-    });
+    animateToSelectedMarker(marker);
   }
 };
 
@@ -104,7 +109,7 @@ const findNearestRestaurant = async (restaurants) => {
     restaurants.forEach((restaurant) => {
       const [resLon, resLat] = restaurant.location.coordinates;
       const distance = calculateDistance(myLat, myLon, resLat, resLon);
-      console.log('distance called', distance);
+      console.log('Distance to restaurant:', distance);
 
       if (distance < minDistance) {
         minDistance = distance;
@@ -113,9 +118,8 @@ const findNearestRestaurant = async (restaurants) => {
     });
 
     if (nearestRestaurant) {
-      console.log('nearest restaurant', nearestRestaurant);
+      console.log('Nearest restaurant:', nearestRestaurant);
       focusOnRestaurant(nearestRestaurant);
-      highlightRestaurantRow(nearestRestaurant._id);
     }
   } catch (e) {
     console.error('Error finding nearest restaurant:', e);
