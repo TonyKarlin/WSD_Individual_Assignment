@@ -7,7 +7,7 @@ let restaurants = [];
 let selectedRestaurant = null;
 let previousHighlight;
 
-const displayRestaurants = async () => {
+const fetchAndSetRestaurants = async () => {
   try {
     const response = await getRestaurants();
     if (response) {
@@ -15,53 +15,60 @@ const displayRestaurants = async () => {
     } else {
       console.error('No restaurants found');
     }
-    const table = document.querySelector('.restaurant-table');
-
-    // let previousHighlight;
-
-    restaurants.forEach((restaurant) => {
-      const tr = restaurantRow(restaurant);
-      tr.setAttribute('data-id', restaurant._id);
-      tr.addEventListener('click', async () => {
-        try {
-          if (previousHighlight === tr) {
-            tr.classList.remove('restaurant-highlight');
-            previousHighlight = null;
-            selectedRestaurant = null;
-            mapMarkers.forEach((marker) => marker.setIcon(defaultIcon));
-            return;
-          }
-
-          if (previousHighlight) {
-            previousHighlight.classList.remove('restaurant-highlight');
-          }
-
-          tr.classList.add('restaurant-highlight');
-          previousHighlight = tr;
-
-          selectedRestaurant = restaurant;
-          console.log('selectedRestaurant', selectedRestaurant);
-
-          mapMarkers.forEach((marker) => marker.setIcon(defaultIcon)); // Reset all markers
-          const marker = mapMarkers.get(restaurant._id); // Get the corresponding marker
-          if (marker) {
-            marker.setIcon(selectedIcon); // Highlight the selected marker
-            marker.openPopup(); // Open the popup for the marker
-
-            mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
-              animate: true, // Smooth animation
-              duration: 0.5, // Animation duration (in seconds)
-            });
-          }
-        } catch (e) {
-          console.log('highlight error', e);
-        }
-      });
-      table.append(tr);
-    });
   } catch (e) {
     console.error('Error fetching restaurants:', e);
   }
+};
+
+const createRestaurantRow = (restaurant) => {
+  const tr = restaurantRow(restaurant);
+  tr.setAttribute('data-id', restaurant._id);
+  tr.addEventListener('click', () => handleRowClick(tr, restaurant));
+  return tr;
+};
+
+const handleRowClick = async (row, restaurant) => {
+  try {
+    if (previousHighlight === row) {
+      row.classList.remove('restaurant-highlight');
+      previousHighlight = null;
+      selectedRestaurant = null;
+      mapMarkers.forEach((marker) => marker.setIcon(defaultIcon));
+      return;
+    }
+
+    if (previousHighlight) {
+      previousHighlight.classList.remove('restaurant-highlight');
+    }
+
+    row.classList.add('restaurant-highlight');
+    previousHighlight = row;
+
+    selectedRestaurant = restaurant;
+    console.log('selectedRestaurant', selectedRestaurant);
+
+    mapMarkers.forEach((marker) => marker.setIcon(defaultIcon));
+    const marker = mapMarkers.get(restaurant._id);
+    if (marker) {
+      marker.setIcon(selectedIcon);
+      marker.openPopup();
+
+      mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
+        animate: true,
+        duration: 0.5,
+      });
+    }
+  } catch (e) {
+    console.log('highlight error', e);
+  }
+};
+
+const populateRestaurantTable = () => {
+  const table = document.querySelector('.restaurant-table');
+  restaurants.forEach((restaurant) => {
+    const row = createRestaurantRow(restaurant);
+    table.append(row);
+  });
 };
 
 const highlightRestaurantRow = (restaurantId) => {
@@ -78,6 +85,11 @@ const highlightRestaurantRow = (restaurantId) => {
       block: 'center',
     });
   }
+};
+
+const displayRestaurants = async () => {
+  await fetchAndSetRestaurants();
+  populateRestaurantTable();
 };
 
 export {displayRestaurants, highlightRestaurantRow, restaurants};
