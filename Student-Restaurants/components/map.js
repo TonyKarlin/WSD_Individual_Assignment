@@ -109,7 +109,6 @@ const findNearestRestaurant = async (restaurants) => {
     restaurants.forEach((restaurant) => {
       const [resLon, resLat] = restaurant.location.coordinates;
       const distance = calculateDistance(myLat, myLon, resLat, resLon);
-      console.log('Distance to restaurant:', distance);
 
       if (distance < minDistance) {
         minDistance = distance;

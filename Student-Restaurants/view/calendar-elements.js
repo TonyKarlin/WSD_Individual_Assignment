@@ -1,5 +1,8 @@
 'use strict';
 
+let previousHighlight = null;
+let selectedDay = null;
+
 const createCalendar = () => {
   const calendar = document.querySelector('.calendar');
   const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -11,6 +14,7 @@ const createCalendar = () => {
     dayElement.classList.add('calendar-day');
     dayElement.innerText = day.toUpperCase();
     dayElement.title = calendarTitles(day);
+    calendarClickHandler(dayElement);
     calendar.appendChild(dayElement);
   });
 
@@ -26,7 +30,8 @@ const highlightToday = (calendar) => {
   const dayElements = calendar.querySelectorAll('.calendar-day');
   if (dayElements[adjustedIndex]) {
     dayElements[adjustedIndex].innerText = 'TODAY';
-    dayElements[adjustedIndex].classList.add('highlight-today');
+    dayElements[adjustedIndex].classList.add('calendar-highlight');
+    previousHighlight = dayElements[adjustedIndex];
   }
 };
 
@@ -49,6 +54,18 @@ const calendarTitles = (day) => {
     default:
       return '';
   }
+};
+
+const calendarClickHandler = (day) => {
+  day.addEventListener('click', () => {
+    if (previousHighlight) {
+      previousHighlight.classList.remove('calendar-highlight');
+    }
+    day.classList.add('calendar-highlight');
+    previousHighlight = day;
+    selectedDay = day.innerText.toLowerCase();
+    console.log('Selected day:', selectedDay);
+  });
 };
 
 export default createCalendar;

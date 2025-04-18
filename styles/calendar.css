@@ -18,10 +18,10 @@
   cursor: pointer;
 }
 
-.highlight-today {
+.calendar-highlight {
   background-color: #202020;
 }
 
-.highlight-today:hover {
+.calendar-highlight:hover {
   background-color: #161616;
 }
