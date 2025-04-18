@@ -1,8 +1,9 @@
 'use strict';
 import {getRestaurants} from '../routes/routes.js';
+import createCalendar from '../view/calendar-elements.js';
 import {restaurantRow} from '../view/restaurant-elements.js';
-import {defaultIcon, focusOnRestaurant, mapMarkers} from './map.js';
-import {calculateDistance, getLocation} from '../lib/location.js';
+import {focusOnRestaurant, resetMarkers} from './map.js';
+import {displayMeals} from './meals.js';
 
 let restaurants = [];
 let selectedRestaurant = null;
@@ -21,20 +22,13 @@ const fetchAndSetRestaurants = async () => {
   }
 };
 
-const createRestaurantRow = (restaurant) => {
-  const tr = restaurantRow(restaurant);
-  tr.setAttribute('data-id', restaurant._id);
-  tr.addEventListener('click', () => handleRowClick(tr, restaurant));
-  return tr;
-};
-
 const handleRowClick = async (row, restaurant) => {
   try {
     if (previousHighlight === row) {
       row.classList.remove('restaurant-highlight');
       previousHighlight = null;
       selectedRestaurant = null;
-      mapMarkers.forEach((marker) => marker.setIcon(defaultIcon));
+      resetMarkers();
       return;
     }
 
@@ -54,6 +48,13 @@ const handleRowClick = async (row, restaurant) => {
   }
 };
 
+const createRestaurantRow = (restaurant) => {
+  const tr = restaurantRow(restaurant);
+  tr.setAttribute('data-id', restaurant._id);
+  tr.addEventListener('click', () => handleRowClick(tr, restaurant));
+  return tr;
+};
+
 const populateRestaurantTable = () => {
   const table = document.querySelector('.restaurant-table');
   restaurants.forEach((restaurant) => {
@@ -70,6 +71,7 @@ const highlightRestaurantRow = (restaurantId) => {
   if (row) {
     row.classList.add('restaurant-highlight');
     previousHighlight = row;
+    createCalendar();
 
     row.scrollIntoView({
       behavior: 'smooth',

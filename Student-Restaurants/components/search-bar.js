@@ -18,15 +18,6 @@ const createSearchBar = () => {
   return searchInput;
 };
 
-// const createCloseIcon = () => {
-//   const closeIcon = document.createElement('span');
-//   closeIcon.id = 'close-icon';
-//   closeIcon.innerHTML = '&#10005;';
-//   closeIcon.fontSize = '14px';
-
-//   return closeIcon;
-// };
-
 const searchBarHandler = (elements) => {
   if (!elements) {
     return;

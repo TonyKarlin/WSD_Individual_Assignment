@@ -1,5 +1,6 @@
 'use strict';
 import {getDailyMeals} from '../routes/routes.js';
+import createCalendar from '../view/calendar-elements.js';
 import {createMealsTable} from '../view/meal-elements.js';
 
 const getMeals = async (restaurantId, lang = 'en') => {
@@ -15,6 +16,7 @@ const getMeals = async (restaurantId, lang = 'en') => {
 
 const displayMeals = async (restaurantId) => {
   const meals = await getMeals(restaurantId);
+  createCalendar();
   createMealsTable(meals);
 };
 
@@ -22,8 +24,8 @@ const updateCalendarWithMenu = (weeklyMenu) => {
   const calendarDays = document.querySelectorAll('.calendar-day');
 
   calendarDays.forEach((dayElement) => {
-    const day = dayElement.innerText.toLowerCase(); // Get the day (e.g., 'mon', 'tue')
-    const menuForDay = weeklyMenu[day]; // Get menu for the specific day
+    const day = dayElement.innerText.toLowerCase();
+    const menuForDay = weeklyMenu[day];
 
     if (menuForDay) {
       dayElement.innerHTML = `<strong>${

@@ -37,7 +37,6 @@ const createMealsTable = (meals) => {
   }
 
   const mainContainer = document.querySelector('.main-container');
-  mainContainer.innerHTML = '';
   mainContainer.appendChild(mealsTable);
 };
 

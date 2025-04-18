@@ -7,7 +7,7 @@
 
 .calendar-day {
   padding: 10px;
-  background-color: #202020;
+  background-color: #292a2b;
   margin: 0 5px 0 5px;
   border-radius: 5px;
   border: solid 1px #161616;
@@ -16,4 +16,12 @@
 .calendar-day:hover {
   background-color: #161616;
   cursor: pointer;
+}
+
+.highlight-today {
+  background-color: #202020;
+}
+
+.highlight-today:hover {
+  background-color: #161616;
 }

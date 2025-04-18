@@ -143,8 +143,6 @@ export {
   getMap,
   focusOnRestaurant,
   getNearestRestaurant,
-  mapMarkers,
-  defaultIcon,
-  selectedIcon,
+  resetMarkers,
   mapInstance,
 };
