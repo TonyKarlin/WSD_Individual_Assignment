@@ -1,7 +1,8 @@
 'use strict';
 import {getRestaurants} from '../routes/routes.js';
 import {restaurantRow} from '../view/restaurant-elements.js';
-import {defaultIcon, mapInstance, mapMarkers, selectedIcon} from './map.js';
+import {defaultIcon, focusOnRestaurant, mapMarkers} from './map.js';
+import {calculateDistance, getLocation} from '../lib/location.js';
 
 let restaurants = [];
 let selectedRestaurant = null;
@@ -47,17 +48,7 @@ const handleRowClick = async (row, restaurant) => {
     selectedRestaurant = restaurant;
     console.log('selectedRestaurant', selectedRestaurant);
 
-    mapMarkers.forEach((marker) => marker.setIcon(defaultIcon));
-    const marker = mapMarkers.get(restaurant._id);
-    if (marker) {
-      marker.setIcon(selectedIcon);
-      marker.openPopup();
-
-      mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
-        animate: true,
-        duration: 0.5,
-      });
-    }
+    focusOnRestaurant(restaurant);
   } catch (e) {
     console.log('highlight error', e);
   }

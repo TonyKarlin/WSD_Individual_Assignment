@@ -1,5 +1,5 @@
 'use strict';
-import getLocation from '../lib/location.js';
+import {getLocation, calculateDistance} from '../lib/location.js';
 import {highlightRestaurantRow} from './restaurants.js';
 
 const mapMarkers = new Map();
@@ -45,8 +45,6 @@ const getMap = async () => {
   }
 };
 
-const nearestRestaurant = () => {};
-
 const addRestaurantsToMap = (restaurants) => {
   restaurants.forEach((restaurant) => {
     const coords = restaurant.location.coordinates;
@@ -78,9 +76,69 @@ const addRestaurantsToMap = (restaurants) => {
   });
 };
 
+const focusOnRestaurant = (restaurant) => {
+  const marker = mapMarkers.get(restaurant._id);
+  if (marker) {
+    mapMarkers.forEach((m) => m.setIcon(defaultIcon));
+    marker.setIcon(selectedIcon);
+    marker.openPopup();
+
+    mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
+      animate: true,
+      duration: 0.5,
+    });
+  }
+};
+
+const findNearestRestaurant = async (restaurants) => {
+  try {
+    const location = await getLocation();
+    if (!location) {
+      console.error('Location not found');
+      return;
+    }
+    const {latitude: myLat, longitude: myLon} = location;
+    let nearestRestaurant = null;
+    let minDistance = Infinity;
+
+    restaurants.forEach((restaurant) => {
+      const [resLon, resLat] = restaurant.location.coordinates;
+      const distance = calculateDistance(myLat, myLon, resLat, resLon);
+      console.log('distance called', distance);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestRestaurant = restaurant;
+      }
+    });
+
+    if (nearestRestaurant) {
+      console.log('nearest restaurant', nearestRestaurant);
+      focusOnRestaurant(nearestRestaurant);
+      highlightRestaurantRow(nearestRestaurant._id);
+    }
+  } catch (e) {
+    console.error('Error finding nearest restaurant:', e);
+  }
+};
+
+const getNearestRestaurant = (restaurants) => {
+  const nearestBtn = document.querySelector('.nearest-restaurant');
+  nearestBtn.addEventListener('click', async () => {
+    try {
+      console.log('Nearest restaurant button clicked');
+      await findNearestRestaurant(restaurants);
+    } catch (e) {
+      console.error('Error finding nearest restaurant:', e);
+    }
+  });
+};
+
 export {
   addRestaurantsToMap,
   getMap,
+  focusOnRestaurant,
+  getNearestRestaurant,
   mapMarkers,
   defaultIcon,
   selectedIcon,

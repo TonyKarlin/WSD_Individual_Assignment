@@ -1,12 +1,16 @@
 import {displayRestaurants, restaurants} from './components/restaurants.js';
 import personalizeUserImg from './components/user.js';
-import {addRestaurantsToMap, getMap} from './components/map.js';
+import {
+  addRestaurantsToMap,
+  getMap,
+  getNearestRestaurant,
+} from './components/map.js';
 import {
   searchBarHandler,
   createSearchBarElements,
 } from './components/search-bar.js';
 import {langDDHandler} from './components/lang-icons.js';
-import getLocation from './lib/location.js';
+import {getLocation} from './lib/location.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -32,6 +36,7 @@ const main = async () => {
         addRestaurantsToMap(restaurants);
         map.restaurantsAdded = true;
       }
+      getNearestRestaurant(restaurants);
     } else {
       console.error('Map not initialized');
     }
