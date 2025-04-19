@@ -24,6 +24,10 @@
     "globals": "^16.0.0"
   },
   "dependencies": {
-    "flag-icons": "^7.3.2"
+    "bcrypt": "^5.1.1",
+    "flag-icons": "^7.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.2",
+    "sharp": "^0.34.1"
   }
 }
