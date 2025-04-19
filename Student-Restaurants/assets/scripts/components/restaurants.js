@@ -1,6 +1,7 @@
 'use strict';
 import {getRestaurants} from '../routes/routes.js';
-import createCalendar from '../view/calendar-elements.js';
+import {createCalendar} from '../view/calendar-elements.js';
+import {hidePlaceholders} from '../view/placeholder-elements.js';
 import {restaurantRow} from '../view/restaurant-elements.js';
 import {focusOnRestaurant, resetMarkers} from './map.js';
 
@@ -62,15 +63,16 @@ const populateRestaurantTable = () => {
   });
 };
 
-const highlightRestaurantRow = (restaurantId) => {
+const highlightRestaurantRow = async (restaurantId) => {
   const row = document.querySelector(`[data-id="${restaurantId}"]`);
+  hidePlaceholders();
   if (previousHighlight) {
     previousHighlight.classList.remove('restaurant-highlight');
   }
   if (row) {
     row.classList.add('restaurant-highlight');
     previousHighlight = row;
-    createCalendar();
+    await createCalendar(restaurantId, 'en');
 
     row.scrollIntoView({
       behavior: 'smooth',

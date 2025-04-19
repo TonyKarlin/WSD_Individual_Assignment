@@ -1,43 +1,39 @@
 'use strict';
 
-const createMeals = (meals) => {
+const createMeals = ({name, price, diets}) => {
   const mRow = document.createElement('tr');
-  mRow.className = 'meal-row';
-  const {name, price, diets} = meals;
-  if (mRow) {
-    mRow.innerHTML = `
-    <div class='meal'><h3>${name}</h3></div>
-    ${price ? `<div class='meal-price'>${price} €</div>` : ''}
-    ${diets ? `<div class='meal-diet'>${diets}</div>` : ''}
-    `;
-  }
+  mRow.innerHTML = `
+    <td>${name ?? 'Unknown Meal'}</td>
+    <td>${price ? `${price} €` : 'N/A'}</td>
+    <td>${diets ?? 'No diets available'}</td>
+  `;
   return mRow;
 };
 
-const createMealsTable = (meals) => {
-  const mealsTable = document.createElement('table');
-  mealsTable.className = 'meals-table';
+const createMealsTable = async (meals) => {
+  // document.addEventListener('DOMContentLoaded', () => {
+  const mealsTable = document.querySelector('.meals-table');
+  if (!mealsTable) {
+    console.error('No meals table body found');
+    return;
+  }
+  mealsTable.innerHTML = ``;
   mealsTable.innerHTML = `
     <thead>
-      <tr>
+      <tr class="table-header">
         <th>Meal</th>
         <th>Price</th>
         <th>Diets</th>
       </tr>
     </thead>
-    <tbody class='meals-table-body'>
-    </tbody>
   `;
-  const mealsTableBody = mealsTable.querySelector('.meals-table-body');
-  if (mealsTableBody) {
-    meals?.forEach((course) => {
-      const mealRow = createMeals(course);
-      mealsTableBody.appendChild(mealRow);
-    });
-  }
 
-  const mainContainer = document.querySelector('.main-container');
-  mainContainer.appendChild(mealsTable);
+  meals?.forEach((course) => {
+    const mealRow = createMeals(course);
+    mealsTable.appendChild(mealRow);
+  });
+  return mealsTable;
+  // });
 };
 
 export {createMealsTable};

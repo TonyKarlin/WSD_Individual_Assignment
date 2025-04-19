@@ -17,24 +17,36 @@ const fetchData = async (url) => {
 };
 
 const getDailyMeals = async (restaurantId, lang) => {
-  const menu = await fetchData(
-    `${baseUrl}/restaurants/daily/${restaurantId}/${lang}`
-  );
-  if (menu) {
-    return menu;
-  } else {
+  try {
+    const menu = await fetchData(
+      `${baseUrl}/restaurants/daily/${restaurantId}/${lang}`
+    );
+    if (menu) {
+      return menu;
+    } else {
+      console.error('Menu not found');
+      return {};
+    }
+  } catch (e) {
+    console.error(e);
     return {};
   }
 };
 
 const getWeeklyMeals = async (restaurantId, lang) => {
-  const menu = await fetchData(
-    `${baseUrl}/restaurants/weekly/${restaurantId}/${lang}`
-  );
-  if (menu) {
-    console.log('Manu', menu);
-    return menu;
-  } else {
+  try {
+    const menu = await fetchData(
+      `${baseUrl}/restaurants/weekly/${restaurantId}/${lang}`
+    );
+    if (menu) {
+      console.log('Menu', menu);
+      return menu;
+    } else {
+      console.error('Menu not found');
+      return {};
+    }
+  } catch (e) {
+    console.error(e);
     return {};
   }
 };
