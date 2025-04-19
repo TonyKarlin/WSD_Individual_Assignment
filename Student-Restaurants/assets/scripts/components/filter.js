@@ -1,4 +1,10 @@
 'use strict';
+import {restaurants} from './restaurants.js';
+
+const options = {
+  company: [],
+  city: [],
+};
 
 const filterRestaurantsByCompany = (restaurants, company) => {
   if (!company) {
@@ -11,7 +17,35 @@ const filterRestaurantByCity = (restaurants, city) => {
   if (!city) {
     return restaurants;
   }
-  return restaurants.filter((restaurant) => restaurant.city === city);
+  restaurants = restaurants.filter((restaurant) => {
+    return restaurant.city.toLowerCase() === city.toLowerCase();
+  });
 };
 
-export {filterRestaurantsByCompany, filterRestaurantByCity};
+const gatherCities = () => {
+  console.log('Restaurants:', restaurants);
+  const uniqueCities = [
+    ...new Set(restaurants.map((restaurant) => restaurant.city)),
+  ];
+  console.log(uniqueCities);
+  options.city = ['All', ...uniqueCities]; // Add "All" as the default option
+};
+
+const gatherCompanies = () => {
+  const uniqueCompanies = [
+    ...new Set(restaurants.map((restaurant) => restaurant.company)),
+  ];
+  options.company = ['All', ...uniqueCompanies]; // Add "All" as the default option
+};
+
+const initializeOptions = () => {
+  gatherCities();
+  gatherCompanies();
+};
+
+export {
+  filterRestaurantsByCompany,
+  filterRestaurantByCity,
+  options,
+  initializeOptions,
+};

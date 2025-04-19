@@ -5,17 +5,22 @@ const createSearchBarElements = () => {
     asideHeader: document.querySelector('.sidebar-header'),
     asideHeaderHElem: document.querySelector('.sidebar-header h2'),
     asideHeaderImg: document.querySelector('.search-img-container'),
+    asideWrapper: document.querySelector('.sidebar-wrapper'),
   };
   return searchElements;
 };
 
 const createSearchBar = () => {
+  const searchWrapper = document.createElement('div');
+  searchWrapper.className = 'search-wrapper';
   const searchInput = document.createElement('input');
   searchInput.className = 'search-input';
   searchInput.setAttribute('type', 'text');
   searchInput.setAttribute('placeholder', 'Search for restaurants   (Esc)');
 
-  return searchInput;
+  searchWrapper.appendChild(searchInput);
+
+  return searchWrapper;
 };
 
 const searchBarHandler = (elements) => {
@@ -23,10 +28,10 @@ const searchBarHandler = (elements) => {
     return;
   }
 
-  const {asideHeader, asideHeaderHElem, asideHeaderImg} = elements;
+  const {asideWrapper, asideHeaderHElem, asideHeaderImg} = elements;
 
   asideHeaderImg.addEventListener('click', () => {
-    if (!asideHeader.querySelector('.search-input')) {
+    if (!asideWrapper.querySelector('.search-input')) {
       const searchInput = createSearchBar();
 
       const handleEscKey = (event) => {
@@ -39,7 +44,7 @@ const searchBarHandler = (elements) => {
 
       document.addEventListener('keydown', handleEscKey);
 
-      asideHeader.insertBefore(searchInput, asideHeaderHElem);
+      asideWrapper.insertBefore(searchInput, asideHeaderHElem);
       asideHeaderHElem.style.display = 'none';
     }
   });

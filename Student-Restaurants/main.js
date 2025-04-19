@@ -13,6 +13,11 @@ import {
   createSearchBarElements,
 } from './assets/scripts/components/search-bar.js';
 import {langDDHandler} from './assets/scripts/components/lang-icons.js';
+import {
+  createCheckBoxes,
+  createCityDropdown,
+} from './assets/scripts/view/filter-elements.js';
+import {initializeOptions} from './assets/scripts/components/filter.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -30,6 +35,7 @@ const main = async () => {
     searchBarHandler(searchElements);
 
     await displayRestaurants();
+    initializeOptions();
 
     const map = await getMap();
     if (map) {
@@ -44,6 +50,8 @@ const main = async () => {
 
     logoNavigation();
     personalizeUserImg();
+    createCheckBoxes();
+    createCityDropdown();
   } catch (e) {
     console.log('Main error: ', e);
   }

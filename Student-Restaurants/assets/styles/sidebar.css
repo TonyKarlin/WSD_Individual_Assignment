@@ -13,20 +13,28 @@
   border-radius: 5px;
 }
 
-.sidebar-header {
+.sidebar-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 80px !important;
+  height: 140px !important;
   background-color: #292a2b;
   border-bottom: 1px solid #0e0d0e;
 }
 
 .sidebar-header h2 {
-  margin-left: 0;
-  margin-right: 1.5rem;
+  margin-left: 1rem;
   text-align: center;
   flex: 1;
 }
@@ -35,12 +43,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px;
-  height: 45px;
   background-color: #2d2f30;
   border: solid 2px #161616;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 3rem;
+  margin-left: 5px;
+  padding: 10px;
 }
 
 .search-img-container:hover {
@@ -61,11 +70,15 @@
   left: 10%;
 }
 
+.search-wrapper {
+  width: 100%;
+}
+
 .search-input {
-  margin: 5rem;
+  width: 200px;
+  margin-right: 1rem;
   padding: 5px;
   text-align: center;
-  flex: 1;
 }
 
 .filter {
@@ -118,4 +131,32 @@
 
 .restaurant-highlight {
   background-color: #242424;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0 5px 5px 5px;
+}
+
+.checkbox-container label {
+  text-align: center;
+  margin-right: 5px;
+}
+
+.checkbox-container input {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px 0 5px;
+  align-self: center;
+}
+
+.cities-container {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+.cities-container label {
+  margin-right: 5px;
 }
