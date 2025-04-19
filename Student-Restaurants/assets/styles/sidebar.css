@@ -35,7 +35,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 3.8rem;
   width: 65px;
   height: 45px;
   background-color: #2d2f30;
@@ -67,6 +66,23 @@
   padding: 5px;
   text-align: center;
   flex: 1;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 45px;
+  background-color: #2d2f30;
+  border: solid 2px #161616;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px 0 10px;
+}
+
+.filter img {
+  margin-bottom: 2px;
 }
 
 .restaurant-table {

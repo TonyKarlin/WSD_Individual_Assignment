@@ -1,6 +1,7 @@
 'use strict';
 import {getWeeklyMeals} from '../routes/routes.js';
 import {assignMealsToDays} from '../components/meals.js';
+import {getToday} from '../lib/date.js';
 
 let previousHighlight = null;
 let selectedDay = null;
@@ -32,12 +33,6 @@ const createCalendar = async (restaurantId, lang = 'en') => {
   const menuContainer = document.querySelector('.menu-container');
   menuContainer.style.display = 'flex';
   highlightToday(calendar);
-};
-
-const getToday = () => {
-  const todayIndex = new Date().getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
-  const adjustedIndex = todayIndex === 0 ? 6 : todayIndex - 1;
-  return adjustedIndex;
 };
 
 const highlightToday = (calendar) => {
@@ -88,4 +83,4 @@ const calendarClickHandler = (day, dayIndex, weeklyMenu) => {
   });
 };
 
-export {createCalendar, getToday};
+export {createCalendar};

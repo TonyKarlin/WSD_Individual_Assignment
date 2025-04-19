@@ -1,6 +1,10 @@
 'use strict';
 
-import createCalendar from '../view/calendar-elements.js';
+const getToday = () => {
+  const todayIndex = new Date().getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+  const adjustedIndex = todayIndex === 0 ? 6 : todayIndex - 1;
+  return adjustedIndex;
+};
 
 const getWeekDay = (date) => {
   const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -8,22 +12,4 @@ const getWeekDay = (date) => {
   return weekdays[day === 0 ? 6 : day - 1];
 };
 
-const highlightTodayInCalendar = () => {
-  const today = new Date();
-  const todayWeekDay = getWeekDay(today);
-  const calendarDays = document.querySelectorAll('.calendar-day');
-
-  calendarDays.forEach((dayElement) => {
-    if (dayElement.innerText.toLowerCase() === todayWeekDay) {
-      dayElement.innerText = 'Today';
-      dayElement.style.backgroundColor = '#181818';
-    }
-  });
-};
-
-const initializeCalendar = () => {
-  createCalendar();
-  highlightTodayInCalendar();
-};
-
-export default initializeCalendar;
+export {getToday, getWeekDay};
