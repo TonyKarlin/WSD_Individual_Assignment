@@ -11,7 +11,6 @@ const createMeals = ({name, price, diets}) => {
 };
 
 const createMealsTable = async (meals) => {
-  // document.addEventListener('DOMContentLoaded', () => {
   const mealsTable = document.querySelector('.meals-table');
   if (!mealsTable) {
     console.error('No meals table body found');
@@ -33,7 +32,6 @@ const createMealsTable = async (meals) => {
     mealsTable.appendChild(mealRow);
   });
   return mealsTable;
-  // });
 };
 
 export {createMealsTable};

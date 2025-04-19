@@ -21,7 +21,7 @@ const createCalendar = async (restaurantId, lang = 'en') => {
     dayElement.classList.add('calendar-day');
     dayElement.innerText = day.toUpperCase();
     dayElement.title = calendarTitles(day);
-    calendarClickHandler(dayElement);
+    calendarClickHandler(dayElement, i, weeklyMenu);
     calendar.appendChild(dayElement);
 
     if (weeklyMenu && weeklyMenu.days && weeklyMenu.days[i]) {
@@ -72,8 +72,8 @@ const calendarTitles = (day) => {
   }
 };
 
-const calendarClickHandler = (day) => {
-  day.addEventListener('click', () => {
+const calendarClickHandler = (day, dayIndex, weeklyMenu) => {
+  day.addEventListener('click', async () => {
     if (previousHighlight) {
       previousHighlight.classList.remove('calendar-highlight');
     }
@@ -81,6 +81,10 @@ const calendarClickHandler = (day) => {
     previousHighlight = day;
     selectedDay = day.innerText.toLowerCase();
     console.log('Selected day:', selectedDay);
+
+    if (weeklyMenu && weeklyMenu.days && weeklyMenu.days[dayIndex]) {
+      await assignMealsToDays(weeklyMenu, dayIndex);
+    }
   });
 };
 
