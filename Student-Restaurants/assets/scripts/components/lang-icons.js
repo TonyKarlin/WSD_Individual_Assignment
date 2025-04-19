@@ -5,18 +5,15 @@ import {getLangElements, langSpan} from '../view/lang-elements.js';
 const languages = [
   {name: 'English', code: 'gb'},
   {name: 'Finnish', code: 'fi'},
-  {name: 'Swedish', code: 'se'},
 ];
 
-// Function to change the language and update the flag icon
 const changeLanguage = (currentFlag, newLang) => {
   if (currentFlag.className !== `fi fi-${newLang}`) {
     currentFlag.className = `fi fi-${newLang}`;
 
-    // Refresh the dropdown to reflect the new current language
     const dropDown = document.querySelector('.lang-dropdown');
-    dropDown.innerHTML = ''; // Clear existing items
-    createDDItems(currentFlag, dropDown); // Recreate items
+    dropDown.innerHTML = '';
+    createDDItems(currentFlag, dropDown);
   }
 };
 
@@ -36,7 +33,6 @@ const createDDItems = (currentFlag, dropDown) => {
   });
 };
 
-// Function to handle dropdown behavior
 const langDDHandler = () => {
   const {currentFlag, langCon, dropDown} = getLangElements();
 
@@ -45,16 +41,13 @@ const langDDHandler = () => {
     return;
   }
 
-  // Populate the dropdown with language options
   createDDItems(currentFlag, dropDown);
 
-  // Add click event to toggle dropdown visibility
   langCon.addEventListener('click', () => {
     dropDown.style.display =
       dropDown.style.display === 'none' ? 'block' : 'none';
   });
 
-  // Add click event to close dropdown when clicking outside
   document.addEventListener('click', (event) => {
     if (!langCon.contains(event.target)) {
       dropDown.style.display = 'none';
