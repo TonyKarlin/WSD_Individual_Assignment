@@ -3,7 +3,6 @@ import {getRestaurants} from '../routes/routes.js';
 import createCalendar from '../view/calendar-elements.js';
 import {restaurantRow} from '../view/restaurant-elements.js';
 import {focusOnRestaurant, resetMarkers} from './map.js';
-import {displayMeals} from './meals.js';
 
 let restaurants = [];
 let selectedRestaurant = null;

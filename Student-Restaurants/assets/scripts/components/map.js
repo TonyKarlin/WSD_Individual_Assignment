@@ -60,7 +60,8 @@ const selectMarker = (marker, restaurant) => {
 };
 
 const animateToSelectedMarker = (marker) => {
-  mapInstance.setView(marker.getLatLng(), mapInstance.getZoom(), {
+  const zoomLevel = 15;
+  mapInstance.setView(marker.getLatLng(), zoomLevel, {
     animate: true,
     duration: 0.5,
   });
