@@ -1,6 +1,10 @@
 'use strict';
 
-import {options} from '../components/filter.js';
+import {filterRestaurantByCity, options} from '../components/filter.js';
+import {
+  restaurants,
+  populateRestaurantTable,
+} from '../components/restaurants.js';
 
 const sidebar = document.querySelector('.sidebar-header');
 const checkboxContainer = document.createElement('div');
@@ -40,8 +44,18 @@ const createCityDropdown = () => {
     option.innerText = city;
     select.appendChild(option);
   });
+
+  select.addEventListener('change', () => {
+    const selectedCity = select.value === 'All' ? null : select.value;
+    const filteredRestaurants = filterRestaurantByCity(
+      restaurants,
+      selectedCity
+    );
+    console.log('Filtered Restaurants:', filteredRestaurants);
+    populateRestaurantTable(filteredRestaurants);
+  });
   citiesContainer.appendChild(select);
-  sidebar.appendChild(citiesContainer);
+  checkboxContainer.appendChild(citiesContainer);
 };
 
 export {createCheckBoxes, createCityDropdown};

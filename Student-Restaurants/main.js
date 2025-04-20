@@ -1,5 +1,6 @@
 import {
-  displayRestaurants,
+  fetchAndSetRestaurants,
+  populateRestaurantTable,
   restaurants,
 } from './assets/scripts/components/restaurants.js';
 import personalizeUserImg from './assets/scripts/components/user.js';
@@ -29,12 +30,13 @@ const logoNavigation = () => {
 
 const main = async () => {
   try {
+    await fetchAndSetRestaurants();
     langDDHandler();
 
     const searchElements = createSearchBarElements();
     searchBarHandler(searchElements);
 
-    await displayRestaurants();
+    populateRestaurantTable(restaurants);
     initializeOptions();
 
     const map = await getMap();

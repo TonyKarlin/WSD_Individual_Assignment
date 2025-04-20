@@ -10,14 +10,16 @@ const filterRestaurantsByCompany = (restaurants, company) => {
   if (!company) {
     return restaurants;
   }
-  return restaurants.filter((restaurant) => restaurant.company === company);
+  return restaurants.filter((restaurant) => {
+    return restaurant.company.toLowerCase() === company.toLowerCase();
+  });
 };
 
 const filterRestaurantByCity = (restaurants, city) => {
   if (!city) {
     return restaurants;
   }
-  restaurants = restaurants.filter((restaurant) => {
+  return restaurants.filter((restaurant) => {
     return restaurant.city.toLowerCase() === city.toLowerCase();
   });
 };

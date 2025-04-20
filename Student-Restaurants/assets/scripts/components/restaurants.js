@@ -55,12 +55,19 @@ const createRestaurantRow = (restaurant) => {
   return tr;
 };
 
-const populateRestaurantTable = () => {
+const populateRestaurantTable = (restaurants) => {
   const table = document.querySelector('.restaurant-table');
+  const tbody = document.querySelector('.restaurant-list');
+  console.log('tbody check', tbody);
+
+  tbody.innerHTML = '';
+  console.log('tbody', tbody);
+
   restaurants.forEach((restaurant) => {
     const row = createRestaurantRow(restaurant);
-    table.append(row);
+    tbody.append(row);
   });
+  table.append(tbody);
 };
 
 const highlightRestaurantRow = async (restaurantId) => {
@@ -81,9 +88,9 @@ const highlightRestaurantRow = async (restaurantId) => {
   }
 };
 
-const displayRestaurants = async () => {
-  await fetchAndSetRestaurants();
-  populateRestaurantTable();
+export {
+  highlightRestaurantRow,
+  restaurants,
+  fetchAndSetRestaurants,
+  populateRestaurantTable,
 };
-
-export {displayRestaurants, highlightRestaurantRow, restaurants};
