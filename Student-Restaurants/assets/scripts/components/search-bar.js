@@ -32,11 +32,12 @@ const searchBarHandler = (elements) => {
 
   asideHeaderImg.addEventListener('click', () => {
     if (!asideWrapper.querySelector('.search-input')) {
-      const searchInput = createSearchBar();
+      const searchBar = createSearchBar();
+      const searchInput = searchBar.querySelector('.search-input');
 
       const handleEscKey = (event) => {
         if (event.key === 'Escape') {
-          searchInput.remove();
+          searchBar.remove();
           asideHeaderHElem.style.display = 'block';
           document.removeEventListener('keydown', handleEscKey);
         }
@@ -44,8 +45,27 @@ const searchBarHandler = (elements) => {
 
       document.addEventListener('keydown', handleEscKey);
 
-      asideWrapper.insertBefore(searchInput, asideHeaderHElem);
+      searchInput.addEventListener('input', handleSearch);
+      asideWrapper.insertBefore(searchBar, asideHeaderHElem);
       asideHeaderHElem.style.display = 'none';
+    }
+  });
+};
+
+const handleSearch = (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  const restaurantRows = document.querySelectorAll('.restaurant-row');
+
+  restaurantRows.forEach((row) => {
+    const restaurantNameElem = row.querySelector('.restaurant-name');
+    console.log('restaurant content', restaurantNameElem.textContent);
+    const restaurantName = restaurantNameElem
+      ? restaurantNameElem.textContent.toLowerCase()
+      : '';
+    if (restaurantName.includes(searchTerm)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
     }
   });
 };
