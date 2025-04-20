@@ -10,6 +10,7 @@ const sidebar = document.querySelector('.sidebar-header');
 const checkboxContainer = document.createElement('div');
 const citiesContainer = document.createElement('div');
 
+// AI-generated function
 const createCheckBoxes = () => {
   checkboxContainer.classList.add('checkbox-container');
   options.company.forEach((company) => {
@@ -19,9 +20,50 @@ const createCheckBoxes = () => {
     checkbox.value = company;
     checkbox.classList.add('company-checkbox');
 
+    if (company === 'All') {
+      checkbox.checked = true;
+      checkbox.disabled = true;
+    }
+
     const label = document.createElement('label');
     label.htmlFor = company;
     label.innerText = company;
+
+    checkbox.addEventListener('change', () => {
+      const allCheckbox = document.querySelector('#All');
+
+      if (checkbox.id === 'All') {
+        // If "All" is selected, disable other checkboxes and show all restaurants
+        document.querySelectorAll('.company-checkbox').forEach((cb) => {
+          if (cb !== allCheckbox) {
+            cb.checked = false;
+          }
+        });
+        populateRestaurantTable(restaurants);
+      } else {
+        // If another checkbox is selected, uncheck "All" and enable it
+        allCheckbox.checked = false;
+        allCheckbox.disabled = false;
+
+        const selectedCompanies = Array.from(
+          document.querySelectorAll('.company-checkbox:checked')
+        ).map((cb) => cb.value);
+
+        if (selectedCompanies.length === 0) {
+          // If no checkboxes are selected, re-check and disable "All"
+          allCheckbox.checked = true;
+          allCheckbox.disabled = true;
+          populateRestaurantTable(restaurants);
+        } else {
+          // Filter restaurants based on selected companies
+          const filteredRestaurants = restaurants.filter((restaurant) =>
+            selectedCompanies.includes(restaurant.company)
+          );
+          console.log('Filtered Restaurants:', filteredRestaurants);
+          populateRestaurantTable(filteredRestaurants);
+        }
+      }
+    });
 
     checkboxContainer.appendChild(checkbox);
     checkboxContainer.appendChild(label);
