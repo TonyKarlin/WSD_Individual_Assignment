@@ -54,20 +54,45 @@ const searchBarHandler = (elements) => {
 
 const handleSearch = (event) => {
   const searchTerm = event.target.value.toLowerCase();
-  const restaurantRows = document.querySelectorAll('.restaurant-row');
+  const restaurantData = searchParameters();
 
-  restaurantRows.forEach((row) => {
-    const restaurantNameElem = row.querySelector('.restaurant-name');
-    console.log('restaurant content', restaurantNameElem.textContent);
-    const restaurantName = restaurantNameElem
-      ? restaurantNameElem.textContent.toLowerCase()
-      : '';
-    if (restaurantName.includes(searchTerm)) {
+  restaurantData.forEach(({row, restaurantName, city, company}) => {
+    if (
+      restaurantName.includes(searchTerm) ||
+      city.includes(searchTerm) ||
+      company.includes(searchTerm)
+    ) {
       row.style.display = '';
     } else {
       row.style.display = 'none';
     }
   });
+};
+
+const searchParameters = () => {
+  const restaurantRows = document.querySelectorAll('.restaurant-row');
+  const restaurantData = [];
+
+  restaurantRows.forEach((row) => {
+    const restaurantNameElem = row.querySelector('.restaurant-name');
+    const restaurantCityElem = row.querySelector('.restaurant-city');
+    const restaurantCompanyElem = row.querySelector('.restaurant-company');
+
+    const rowInfo = {
+      row,
+      restaurantName: restaurantNameElem
+        ? restaurantNameElem.textContent.toLowerCase()
+        : '',
+      city: restaurantCityElem
+        ? restaurantCityElem.textContent.toLowerCase()
+        : '',
+      company: restaurantCompanyElem
+        ? restaurantCompanyElem.textContent.toLowerCase()
+        : '',
+    };
+    restaurantData.push(rowInfo);
+  });
+  return restaurantData;
 };
 
 export {searchBarHandler, createSearchBarElements};

@@ -5,8 +5,8 @@ export const restaurantRow = ({name, city, company}) => {
   tr.className = 'restaurant-row';
   tr.innerHTML = `
     <td class="restaurant-name">${name ?? 'Unknown Name'}</td>
-    <td>${city ?? 'Unknown City'}</td>
-    <td>${company ?? 'Unknown Company'}</td>
+    <td class="restaurant-city">${city ?? 'Unknown City'}</td>
+    <td class="restaurant-company">${company ?? 'Unknown Company'}</td>
   `;
   return tr;
 };
