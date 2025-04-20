@@ -66,13 +66,16 @@ const registerUser = () => {
       //     console.error('Error fetching users:', error);
       //   });
 
-      const response = await fetch('http://127.0.0.1:3000/api/v1/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        'https://10.120.32.74/web-page/api/v1/users',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

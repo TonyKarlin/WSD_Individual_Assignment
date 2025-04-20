@@ -27,6 +27,7 @@ const handleLogin = () => {
       username: formData.get('username'),
       password: formData.get('password'),
     };
+    console.log('userData', userData);
 
     if (!validateUsername(userData.username)) {
       alert('Invalid email or username format');
@@ -41,14 +42,16 @@ const handleLogin = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:3000/api/v1/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      console.log('response', response);
+      const response = await fetch(
+        'https://10.120.32.74/web-page/api/v1/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
