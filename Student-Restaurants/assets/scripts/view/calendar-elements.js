@@ -5,34 +5,44 @@ import {getToday} from '../lib/date.js';
 
 let previousHighlight = null;
 let selectedDay = null;
+let isCalendarCreated = false;
 
 const createCalendar = async (restaurantId, lang = 'en') => {
+  if (isCalendarCreated) return;
+  isCalendarCreated = true;
+
   const calendar = document.querySelector('.calendar');
   const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
   calendar.innerHTML = '';
 
-  const weeklyMenu = await getWeeklyMeals(restaurantId, lang);
+  try {
+    const weeklyMenu = await getWeeklyMeals(restaurantId, lang);
 
-  const weeklyMenuContainer = document.querySelector('.meals-table');
-  weeklyMenuContainer.innerHTML = '';
+    const weeklyMenuContainer = document.querySelector('.meals-table');
+    weeklyMenuContainer.innerHTML = '';
 
-  weekDays.forEach(async (day, i) => {
-    const dayElement = document.createElement('div');
-    dayElement.classList.add('calendar-day');
-    dayElement.innerText = day.toUpperCase();
-    dayElement.title = calendarTitles(day);
-    calendarClickHandler(dayElement, i, weeklyMenu);
-    calendar.appendChild(dayElement);
+    weekDays.forEach(async (day, i) => {
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('calendar-day');
+      dayElement.innerText = day.toUpperCase();
+      dayElement.title = calendarTitles(day);
+      calendarClickHandler(dayElement, i, weeklyMenu);
+      calendar.appendChild(dayElement);
 
-    if (weeklyMenu && weeklyMenu.days && weeklyMenu.days[i]) {
-      await assignMealsToDays(weeklyMenu, i);
-    }
-  });
+      if (weeklyMenu && weeklyMenu.days && weeklyMenu.days[i]) {
+        await assignMealsToDays(weeklyMenu, i);
+      }
+    });
 
-  const menuContainer = document.querySelector('.menu-container');
-  menuContainer.style.display = 'flex';
-  highlightToday(calendar);
+    const menuContainer = document.querySelector('.menu-container');
+    menuContainer.style.display = 'flex';
+    highlightToday(calendar);
+  } catch (e) {
+    console.error('Error creating calendar:', e);
+  } finally {
+    isCalendarCreated = false;
+  }
 };
 
 const highlightToday = (calendar) => {
