@@ -27,6 +27,7 @@ const registerUser = () => {
 
     const formData = new FormData(registrationForm);
     const userData = {
+      name: formData.get('name'),
       username: formData.get('username'),
       email: formData.get('email'),
       password: formData.get('password'),
@@ -56,6 +57,15 @@ const registerUser = () => {
     }
 
     try {
+      // fetch('http://127.0.0.1:3000/api/v1/users')
+      //   .then((response) => response.json())
+      //   .then((users) => {
+      //     console.log(users);
+      //   })
+      //   .catch((error) => {
+      //     console.error('Error fetching users:', error);
+      //   });
+
       const response = await fetch('http://127.0.0.1:3000/api/v1/users', {
         method: 'POST',
         headers: {
@@ -66,10 +76,16 @@ const registerUser = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('data', data);
+
+        if (data.result && data.result.id) {
+          localStorage.setItem('userId', data.result.id);
+          localStorage.setItem('user', JSON.stringify(data.result));
+        } else {
+          console.error('User data is missing in the response:', data);
+        }
 
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        localStorage.setItem('userId', data.user.id);
         localStorage.setItem('isLoggedIn', true);
 
         console.log('Registration successful:', data);
