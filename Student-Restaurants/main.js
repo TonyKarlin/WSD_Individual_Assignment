@@ -55,7 +55,7 @@ const main = async () => {
     createCheckBoxes();
     createCityDropdown();
   } catch (e) {
-    console.log('Main error: ', e);
+    console.error('Main error: ', e);
   }
 };
 

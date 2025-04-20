@@ -58,10 +58,12 @@ const createRestaurantRow = (restaurant) => {
 const populateRestaurantTable = (restaurants) => {
   const table = document.querySelector('.restaurant-table');
   const tbody = document.querySelector('.restaurant-list');
-  console.log('tbody check', tbody);
+  if (!tbody) {
+    console.error('No tbody found');
+    return;
+  }
 
   tbody.innerHTML = '';
-  console.log('tbody', tbody);
 
   restaurants.forEach((restaurant) => {
     const row = createRestaurantRow(restaurant);

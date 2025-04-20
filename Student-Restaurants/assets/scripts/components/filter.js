@@ -11,7 +11,10 @@ const filterRestaurantsByCompany = (restaurants, company) => {
     return restaurants;
   }
   return restaurants.filter((restaurant) => {
-    return restaurant.company.toLowerCase() === company.toLowerCase();
+    return (
+      restaurant.company.split(' ').join('').toLowerCase() ===
+      company.split(' ').join('').toLowerCase()
+    );
   });
 };
 
@@ -30,14 +33,14 @@ const gatherCities = () => {
     ...new Set(restaurants.map((restaurant) => restaurant.city)),
   ];
   console.log(uniqueCities);
-  options.city = ['All', ...uniqueCities]; // Add "All" as the default option
+  options.city = ['All', ...uniqueCities];
 };
 
 const gatherCompanies = () => {
   const uniqueCompanies = [
     ...new Set(restaurants.map((restaurant) => restaurant.company)),
   ];
-  options.company = ['All', ...uniqueCompanies]; // Add "All" as the default option
+  options.company = ['All', ...uniqueCompanies];
 };
 
 const initializeOptions = () => {

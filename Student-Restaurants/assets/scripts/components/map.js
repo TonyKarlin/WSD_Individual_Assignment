@@ -138,11 +138,22 @@ const getNearestRestaurant = (restaurants) => {
   });
 };
 
+const rerenderMap = (filteredRestaurants) => {
+  resetMarkers();
+  mapInstance.eachLayer((layer) => {
+    if (layer instanceof L.Marker) {
+      mapInstance.removeLayer(layer);
+    }
+  });
+  addRestaurantsToMap(filteredRestaurants);
+};
+
 export {
   addRestaurantsToMap,
   getMap,
   focusOnRestaurant,
   getNearestRestaurant,
   resetMarkers,
+  rerenderMap,
   mapInstance,
 };

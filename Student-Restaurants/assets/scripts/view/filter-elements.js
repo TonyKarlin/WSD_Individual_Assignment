@@ -1,6 +1,11 @@
 'use strict';
 
-import {filterRestaurantByCity, options} from '../components/filter.js';
+import {
+  filterRestaurantByCity,
+  filterRestaurantsByCompany,
+  options,
+} from '../components/filter.js';
+import {rerenderMap} from '../components/map.js';
 import {
   restaurants,
   populateRestaurantTable,
@@ -10,7 +15,6 @@ const sidebar = document.querySelector('.sidebar-header');
 const checkboxContainer = document.createElement('div');
 const citiesContainer = document.createElement('div');
 
-// AI-generated function
 const createCheckBoxes = () => {
   checkboxContainer.classList.add('checkbox-container');
   options.company.forEach((company) => {
@@ -18,8 +22,9 @@ const createCheckBoxes = () => {
     checkbox.type = 'checkbox';
     checkbox.id = company;
     checkbox.value = company;
-    checkbox.classList.add('company-checkbox');
-
+    checkbox.classList.add(
+      `${company.split(' ').join('').toLowerCase()}-checkbox`
+    );
     if (company === 'All') {
       checkbox.checked = true;
       checkbox.disabled = true;
@@ -29,40 +34,10 @@ const createCheckBoxes = () => {
     label.htmlFor = company;
     label.innerText = company;
 
-    checkbox.addEventListener('change', () => {
-      const allCheckbox = document.querySelector('#All');
-
-      if (checkbox.id === 'All') {
-        // If "All" is selected, disable other checkboxes and show all restaurants
-        document.querySelectorAll('.company-checkbox').forEach((cb) => {
-          if (cb !== allCheckbox) {
-            cb.checked = false;
-          }
-        });
-        populateRestaurantTable(restaurants);
-      } else {
-        // If another checkbox is selected, uncheck "All" and enable it
-        allCheckbox.checked = false;
-        allCheckbox.disabled = false;
-
-        const selectedCompanies = Array.from(
-          document.querySelectorAll('.company-checkbox:checked')
-        ).map((cb) => cb.value);
-
-        if (selectedCompanies.length === 0) {
-          // If no checkboxes are selected, re-check and disable "All"
-          allCheckbox.checked = true;
-          allCheckbox.disabled = true;
-          populateRestaurantTable(restaurants);
-        } else {
-          // Filter restaurants based on selected companies
-          const filteredRestaurants = restaurants.filter((restaurant) =>
-            selectedCompanies.includes(restaurant.company)
-          );
-          console.log('Filtered Restaurants:', filteredRestaurants);
-          populateRestaurantTable(filteredRestaurants);
-        }
-      }
+    checkboxContainer.addEventListener('change', (event) => {
+      const checkbox = event.target;
+      const company = checkbox.value;
+      checkboxLogic(checkbox, company);
     });
 
     checkboxContainer.appendChild(checkbox);
@@ -71,33 +46,84 @@ const createCheckBoxes = () => {
   sidebar.appendChild(checkboxContainer);
 };
 
+const checkboxLogic = (checkbox) => {
+  const allCheckboxes = document.querySelectorAll(
+    '.checkbox-container input[type="checkbox"]'
+  );
+  allCheckboxes.forEach((cb) => {
+    cb.checked = false;
+    cb.disabled = false;
+  });
+
+  switch (checkbox.className) {
+    case 'all-checkbox':
+      populateRestaurantTable(restaurants);
+      rerenderMap(restaurants);
+      checkbox.checked = true;
+      checkbox.disabled = true;
+      break;
+    case 'compassgroup-checkbox': {
+      const compassRestaurants = filterRestaurantsByCompany(
+        restaurants,
+        'compassgroup'
+      );
+      populateRestaurantTable(compassRestaurants);
+      rerenderMap(compassRestaurants);
+      checkbox.checked = true;
+      checkbox.disabled = true;
+      break;
+    }
+    case 'sodexo-checkbox': {
+      const sodexoRestaurants = filterRestaurantsByCompany(
+        restaurants,
+        'sodexo'
+      );
+      populateRestaurantTable(sodexoRestaurants);
+      rerenderMap(sodexoRestaurants);
+      checkbox.checked = true;
+      checkbox.disabled = true;
+      break;
+    }
+  }
+};
+
 const createCityDropdown = () => {
-  const select = document.createElement('select');
-  select.classList.add('city-dropdown');
-  const citiesLabel = document.createElement('label');
-  citiesLabel.innerText = 'Cities:';
-  citiesLabel.classList.add('cities-label');
-  citiesContainer.classList.add('cities-container');
-  citiesContainer.appendChild(citiesLabel);
+  const elements = cityDDElements();
 
   options.city.forEach((city) => {
     const option = document.createElement('option');
     option.value = city;
     option.innerText = city;
-    select.appendChild(option);
+    elements.select.appendChild(option);
   });
 
-  select.addEventListener('change', () => {
-    const selectedCity = select.value === 'All' ? null : select.value;
+  elements.select.addEventListener('change', () => {
+    const selectedCity =
+      elements.select.value === 'All' ? null : elements.select.value;
     const filteredRestaurants = filterRestaurantByCity(
       restaurants,
       selectedCity
     );
-    console.log('Filtered Restaurants:', filteredRestaurants);
     populateRestaurantTable(filteredRestaurants);
+    rerenderMap(filteredRestaurants);
   });
-  citiesContainer.appendChild(select);
+  citiesContainer.appendChild(elements.select);
   checkboxContainer.appendChild(citiesContainer);
+};
+
+const cityDDElements = () => {
+  const elements = {
+    select: document.createElement('select'),
+    citiesLabel: document.createElement('label'),
+    citiesContainer: document.createElement('div'),
+  };
+  elements.select.classList.add('city-dropdown');
+  elements.citiesLabel.innerText = 'Cities:';
+  elements.citiesLabel.classList.add('cities-label');
+  elements.citiesContainer.classList.add('cities-container');
+  elements.citiesContainer.appendChild(elements.citiesLabel);
+
+  return elements;
 };
 
 export {createCheckBoxes, createCityDropdown};
