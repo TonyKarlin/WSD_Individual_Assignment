@@ -1,3 +1,9 @@
+import {langDDHandler} from './assets/scripts/components/lang-icons.js';
+import {
+  handleLanguageChange,
+  translatePage,
+} from './assets/scripts/components/translate-page.js';
+
 const elements = document.querySelectorAll('.logo img, h1');
 
 elements.forEach((element) => {
@@ -93,7 +99,7 @@ const registerUser = () => {
 
         console.log('Registration successful:', data);
         alert('Registration successful!');
-        window.location.href = '../sign-in/login.html';
+        window.location.href = './login.html';
       } else {
         const errorData = await response.json();
         console.error('Registration failed:', errorData);
@@ -108,4 +114,14 @@ const registerUser = () => {
   });
 };
 
-registerUser();
+const initialize = () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('lang') || 'en';
+    translatePage(savedLang);
+  });
+  handleLanguageChange();
+  langDDHandler();
+  registerUser();
+};
+
+initialize();

@@ -81,7 +81,8 @@ const highlightRestaurantRow = async (restaurantId) => {
   if (row) {
     row.classList.add('restaurant-highlight');
     previousHighlight = row;
-    await createCalendar(restaurantId, 'en');
+    const lang = localStorage.getItem('lang') || 'en';
+    await createCalendar(restaurantId, lang);
 
     row.scrollIntoView({
       behavior: 'smooth',

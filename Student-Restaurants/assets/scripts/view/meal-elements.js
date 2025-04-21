@@ -20,9 +20,9 @@ const createMealsTable = async (meals) => {
   mealsTable.innerHTML = `
     <thead>
       <tr class="table-header">
-        <th>Meal</th>
-        <th>Price</th>
-        <th>Diets</th>
+        <th class="meals-header">Meal</th>
+        <th class="price-header">Price</th>
+        <th class="diets-header">Diets</th>
       </tr>
     </thead>
   `;

@@ -2,15 +2,17 @@
 import {getWeeklyMeals} from '../routes/routes.js';
 import {assignMealsToDays} from '../components/meals.js';
 import {getToday} from '../lib/date.js';
+import {translations} from '../lib/translations.js';
 
 let previousHighlight = null;
 let selectedDay = null;
 let isCalendarCreated = false;
 
-const createCalendar = async (restaurantId, lang = 'en') => {
+const createCalendar = async (restaurantId) => {
   if (isCalendarCreated) return;
   isCalendarCreated = true;
 
+  const lang = localStorage.getItem('lang') || 'en';
   const calendar = document.querySelector('.calendar');
   const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
@@ -26,7 +28,7 @@ const createCalendar = async (restaurantId, lang = 'en') => {
       const dayElement = document.createElement('div');
       dayElement.classList.add('calendar-day');
       dayElement.innerText = day.toUpperCase();
-      dayElement.title = calendarTitles(day);
+      dayElement.title = calendarTitles(day, lang);
       calendarClickHandler(dayElement, i, weeklyMenu);
       calendar.appendChild(dayElement);
 
@@ -56,25 +58,17 @@ const highlightToday = (calendar) => {
   }
 };
 
-const calendarTitles = (day) => {
-  switch (day) {
-    case 'mon':
-      return 'Monday';
-    case 'tue':
-      return 'Tuesday';
-    case 'wed':
-      return 'Wednesday';
-    case 'thu':
-      return 'Thursday';
-    case 'fri':
-      return 'Friday';
-    case 'sat':
-      return 'Saturday';
-    case 'sun':
-      return 'Sunday';
-    default:
-      return '';
-  }
+const calendarTitles = (day, lang = 'en') => {
+  const days = {
+    mon: 'monday',
+    tue: 'tuesday',
+    wed: 'wednesday',
+    thu: 'thursday',
+    fri: 'friday',
+    sat: 'saturday',
+    sun: 'sunday',
+  };
+  return translations[lang][days[day]] || '';
 };
 
 const calendarClickHandler = (day, dayIndex, weeklyMenu) => {

@@ -243,6 +243,10 @@ body {
 }
 
 .app-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100px;
   background: linear-gradient(
@@ -255,6 +259,10 @@ body {
   color: white;
   text-align: center;
   border-top: 1px solid #0e0d0e;
+}
+
+.copyright {
+  margin-right: 5px;
 }
 
 .login-link {

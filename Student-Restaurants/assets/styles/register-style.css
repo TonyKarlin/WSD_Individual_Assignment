@@ -13,7 +13,7 @@ body {
 
 .app-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -37,6 +37,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 250px;
+  margin-right: 2rem;
 }
 
 .logo img {
@@ -59,7 +60,7 @@ body {
   background-color: #242424;
 }
 
-.sign-in-container {
+.register-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,14 +69,14 @@ body {
   color: #fff;
 }
 
-.sign-in-container form {
+.register-container form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 60%;
 }
-.sign-in-container form input {
+.register-container form input {
   width: 40%;
   padding: 10px;
   margin-bottom: 15px;
@@ -84,7 +85,7 @@ body {
   border-radius: 4px;
 }
 
-.sign-in-container form button {
+.register-container form button {
   width: 10%;
   padding: 10px;
   margin-top: 15px;
@@ -99,21 +100,73 @@ body {
   cursor: pointer;
 }
 
-.sign-in-container form label {
+.register-container form label {
   align-self: flex-start;
   margin-left: 29%;
 }
 
-.sign-in-container form button:hover {
+.register-container form button:hover {
   background-color: #535658;
   color: #641e64;
 }
 
-.sign-in-container p a {
+.register-container p a {
   color: rgb(22, 86, 158);
   text-underline-offset: 2px;
 }
 
-.sign-in-container p a:hover {
+.register-container p a:hover {
   color: #631a63;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.lang:hover {
+  background-color: #202020;
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #292a2b;
+  border: 2px solid #202020;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.lang-dropdown:active {
+  background-color: #292a2b;
+}
+
+.lang-dropdown span {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.lang-dropdown span:hover {
+  padding: 11px;
+}
+
+.flavour-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.flavour-container p {
+  margin-right: 5px;
 }

@@ -39,7 +39,6 @@ const getWeeklyMeals = async (restaurantId, lang) => {
       `${baseUrl}/restaurants/weekly/${restaurantId}/${lang}`
     );
     if (menu) {
-      console.log('Menu', menu);
       return menu;
     } else {
       console.error('Menu not found');

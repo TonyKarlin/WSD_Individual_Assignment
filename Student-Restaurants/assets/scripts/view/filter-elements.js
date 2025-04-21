@@ -31,6 +31,7 @@ const createCheckBoxes = () => {
     }
 
     const label = document.createElement('label');
+    label.classList.add(`${company.split(' ').join('').toLowerCase()}-label`);
     label.htmlFor = company;
     label.innerText = company;
 
@@ -92,6 +93,7 @@ const createCityDropdown = () => {
 
   options.city.forEach((city) => {
     const option = document.createElement('option');
+    option.id = `${city.split(' ').join('').toLowerCase()}-option`;
     option.value = city;
     option.innerText = city;
     elements.select.appendChild(option);

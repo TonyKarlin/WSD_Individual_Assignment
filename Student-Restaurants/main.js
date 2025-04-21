@@ -19,6 +19,10 @@ import {
   createCityDropdown,
 } from './assets/scripts/view/filter-elements.js';
 import {initializeOptions} from './assets/scripts/components/filter.js';
+import {
+  handleLanguageChange,
+  translatePage,
+} from './assets/scripts/components/translate-page.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -29,6 +33,10 @@ const logoNavigation = () => {
 };
 
 const main = async () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('lang') || 'en';
+    translatePage(savedLang);
+  });
   try {
     await fetchAndSetRestaurants();
     langDDHandler();
@@ -54,6 +62,7 @@ const main = async () => {
     personalizeUserImg();
     createCheckBoxes();
     createCityDropdown();
+    handleLanguageChange();
   } catch (e) {
     console.error('Main error: ', e);
   }

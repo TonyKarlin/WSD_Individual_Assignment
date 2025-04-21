@@ -1,8 +1,14 @@
+import {langDDHandler} from './assets/scripts/components/lang-icons.js';
+import {
+  handleLanguageChange,
+  translatePage,
+} from './assets/scripts/components/translate-page.js';
+
 const elements = document.querySelectorAll('.logo img, h1');
 
 elements.forEach((element) => {
   element.addEventListener('click', () => {
-    window.location.href = '../index.html';
+    window.location.href = './index.html';
   });
 });
 
@@ -62,7 +68,7 @@ const handleLogin = () => {
         localStorage.setItem('isLoggedIn', true);
 
         alert('Login successful');
-        window.location.href = '../index.html';
+        window.location.href = './index.html';
       } else {
         const errorData = await response.json();
         console.error('Login failed:', errorData);
@@ -75,4 +81,14 @@ const handleLogin = () => {
   });
 };
 
-handleLogin();
+const initialize = () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('lang') || 'en';
+    translatePage(savedLang);
+  });
+  handleLanguageChange();
+  langDDHandler();
+  handleLogin();
+};
+
+initialize();
