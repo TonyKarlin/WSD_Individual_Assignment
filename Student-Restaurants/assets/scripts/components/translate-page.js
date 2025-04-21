@@ -37,6 +37,7 @@ const translatePage = (lang) => {
     '.label-password': 'labelPassword',
     '.label-confirm-password': 'labelConfirmPassword',
     '.account-text': 'signInParagraph',
+    '.no-meals': 'noMeals',
   };
 
   Object.entries(elementsToTranslate).forEach(([selector, key]) => {

@@ -72,8 +72,11 @@ const checkForEmpyMeals = (weeklyMenu, calendar) => {
   ) {
     if (!calendar.querySelector('.no-meals')) {
       const placeholder = document.createElement('div');
-      placeholder.classList.add('no-meals');
-      placeholder.innerText = 'No meals available';
+
+      const paragraph = document.createElement('p');
+      paragraph.classList.add('no-meals');
+      paragraph.innerText = 'No meals available for this week';
+      placeholder.appendChild(paragraph);
       calendar.appendChild(placeholder);
     }
     return;

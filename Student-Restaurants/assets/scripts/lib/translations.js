@@ -44,6 +44,7 @@ export const translations = {
     labelEmail: 'Email:',
     labelPassword: 'Password:',
     labelConfirmPassword: 'Confirm Password:',
+    noMeals: 'No meals available for this week',
   },
   fi: {
     monday: 'Maanantai',
@@ -88,5 +89,6 @@ export const translations = {
     labelEmail: 'Sähköposti:',
     labelPassword: 'Salasana:',
     labelConfirmPassword: 'Vahvista salasana:',
+    noMeals: 'Ei aterioita saatavilla tälle viikolle',
   },
 };
