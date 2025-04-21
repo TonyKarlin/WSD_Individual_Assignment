@@ -33,7 +33,7 @@ const createCalendar = async (restaurantId) => {
       ) {
         const dayElement = document.createElement('div');
         dayElement.classList.add('calendar-day');
-        dayElement.innerText = day.toUpperCase();
+        dayElement.innerText = calendarTitles(day, lang);
         dayElement.title = calendarTitles(day, lang);
         calendarClickHandler(dayElement, i, weeklyMenu);
         calendar.appendChild(dayElement);
@@ -56,10 +56,12 @@ const createCalendar = async (restaurantId) => {
 
 const highlightToday = (calendar) => {
   const adjustedIndex = getToday();
+  const lang = localStorage.getItem('lang') || 'en';
 
   const dayElements = calendar.querySelectorAll('.calendar-day');
   if (dayElements[adjustedIndex]) {
-    dayElements[adjustedIndex].innerText = 'TODAY';
+    const todayText = lang === 'fi' ? 'TÄNÄÄN' : 'TODAY';
+    dayElements[adjustedIndex].innerText = todayText;
     dayElements[adjustedIndex].classList.add('calendar-highlight');
     previousHighlight = dayElements[adjustedIndex];
   }
