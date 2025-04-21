@@ -25,17 +25,24 @@ const createCalendar = async (restaurantId) => {
     weeklyMenuContainer.innerHTML = '';
 
     weekDays.forEach(async (day, i) => {
-      const dayElement = document.createElement('div');
-      dayElement.classList.add('calendar-day');
-      dayElement.innerText = day.toUpperCase();
-      dayElement.title = calendarTitles(day, lang);
-      calendarClickHandler(dayElement, i, weeklyMenu);
-      calendar.appendChild(dayElement);
+      if (
+        weeklyMenu &&
+        weeklyMenu.days &&
+        weeklyMenu.days[i] &&
+        weeklyMenu.days[i].courses.length > 0
+      ) {
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('calendar-day');
+        dayElement.innerText = day.toUpperCase();
+        dayElement.title = calendarTitles(day, lang);
+        calendarClickHandler(dayElement, i, weeklyMenu);
+        calendar.appendChild(dayElement);
 
-      if (weeklyMenu && weeklyMenu.days && weeklyMenu.days[i]) {
         await assignMealsToDays(weeklyMenu, i);
       }
     });
+
+    checkForEmpyMeals(weeklyMenu, calendar);
 
     const menuContainer = document.querySelector('.menu-container');
     menuContainer.style.display = 'flex';
@@ -55,6 +62,21 @@ const highlightToday = (calendar) => {
     dayElements[adjustedIndex].innerText = 'TODAY';
     dayElements[adjustedIndex].classList.add('calendar-highlight');
     previousHighlight = dayElements[adjustedIndex];
+  }
+};
+
+const checkForEmpyMeals = (weeklyMenu, calendar) => {
+  if (
+    !weeklyMenu.days ||
+    weeklyMenu.days.every((day) => !day.courses || day.courses.length < 1)
+  ) {
+    if (!calendar.querySelector('.no-meals')) {
+      const placeholder = document.createElement('div');
+      placeholder.classList.add('no-meals');
+      placeholder.innerText = 'No meals available';
+      calendar.appendChild(placeholder);
+    }
+    return;
   }
 };
 
