@@ -7,9 +7,6 @@ const updateUIForLoggedInUser = () => {
   const userProfile = document.querySelector('.user-profile');
 
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  console.log('isLoggedIn', isLoggedIn);
-  console.log('userProfile', userProfile);
-  console.log('loginLink', loginLink);
 
   if (isLoggedIn) {
     if (userProfile) {

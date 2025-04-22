@@ -3,8 +3,15 @@
 const handleUserNameDisplay = () => {
   const userNameContainer = document.querySelector('.user-name');
 
+  const existingUserNameElement =
+    userNameContainer.querySelector('.user-name-element');
+  if (existingUserNameElement) {
+    userNameContainer.removeChild(existingUserNameElement);
+  }
+
   const userNameElement = document.createElement('h2');
   userNameElement.classList.add('user-name-element');
+  userNameElement.innerHTML = '';
   const user = JSON.parse(localStorage.getItem('user'));
   const userName = user ? user.username : null;
   userNameElement.textContent = userName

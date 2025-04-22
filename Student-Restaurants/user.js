@@ -60,16 +60,16 @@ const changeUserName = async (newName) => {
         body: JSON.stringify({username: newName}),
       }
     );
+    console.log('username', newName, response.ok);
 
     if (!response.ok) {
       throw new Error(`Failed to update username: ${response.statusText}`);
     }
 
-    const data = response.json();
+    const data = await response.json();
     console.log('data', data);
     localStorage.setItem('user', JSON.stringify(data));
     getUserInfo();
-    window.location.reload();
   } catch (error) {
     console.error('Error updating username:', error);
   }
@@ -87,6 +87,7 @@ const userNameHandler = () => {
       return;
     }
     await changeUserName(newName);
+    updateUIForLoggedInUser();
     alert('Username updated successfully');
   });
 };
@@ -123,7 +124,7 @@ const deleteUser = async () => {
   }
 };
 
-const changePassword = async (newPassword) => {
+const changePassword = async (newPassword, currentPassword) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const id = user ? user.user_id : null;
   const token = localStorage.getItem('token');
@@ -144,7 +145,7 @@ const changePassword = async (newPassword) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({password: newPassword}),
+        body: JSON.stringify({currentPassword, newPassword}),
       }
     );
     if (!response.ok) {
@@ -163,17 +164,19 @@ const changePasswordHandler = () => {
 
   saveChanges.addEventListener('click', async (event) => {
     event.preventDefault();
-    const password = document.querySelector('#current-password').value.trim();
+    const currentPassword = document
+      .querySelector('#current-password')
+      .value.trim();
     const newPassword = document.querySelector('#new-password').value.trim();
     const confirmPassword = document
       .querySelector('#confirm-password')
       .value.trim();
 
-    console.log('password', password);
+    console.log('password', currentPassword);
     console.log('newPassword', newPassword);
     console.log('confirmPassword', confirmPassword);
 
-    if (!password || !newPassword || !confirmPassword) {
+    if (!currentPassword || !newPassword || !confirmPassword) {
       alert('Please fill in all fields');
       return;
     }
@@ -185,7 +188,7 @@ const changePasswordHandler = () => {
     console.log('validatePassword result:', validatePassword(newPassword));
 
     if (validatePassword(newPassword)) {
-      await changePassword(newPassword);
+      await changePassword(newPassword, currentPassword);
       alert('Password updated successfully');
       window.location.reload();
     } else {
