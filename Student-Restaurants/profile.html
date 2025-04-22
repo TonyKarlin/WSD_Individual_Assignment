@@ -72,17 +72,27 @@
       <main class="application-main">
         <div class="profile-container">
           <div class="profile-info">
-            <h3>Profile Information</h3>
-            <p id="username-display">Username:</p>
-            <p id="email-display">Email:</p>
-            <button type="button" id="profile-logout-button">Logout</button>
+            <h3 class="profile-info-header">Profile Information</h3>
+            <div class="username-info-wrapper">
+              <p id="username-display">Username:</p>
+              <p id="current-username"></p>
+            </div>
+            <div class="email-info-wrapper">
+              <p id="email-display">Email:</p>
+              <p id="current-email"></p>
+            </div>
+            <button type="button" id="profile-info-logout-button">
+              Logout
+            </button>
           </div>
 
           <div class="profile-modification">
             <h2>Profile Settings</h2>
 
             <form class="profile-form" id="username-form">
-              <label for="username">Change Username:</label>
+              <label id="username-change-label" for="username"
+                >Change Username:</label
+              >
               <input type="text" id="username" name="username" />
               <button type="submit" id="save-username-button">
                 Save Username
@@ -90,7 +100,9 @@
             </form>
 
             <form class="profile-form" id="password-form">
-              <label for="current-password">Current Password:</label>
+              <label id="current-password-label" for="current-password"
+                >Current Password:</label
+              >
               <input
                 type="password"
                 id="current-password"
@@ -98,7 +110,9 @@
                 required
               />
 
-              <label for="new-password">New Password:</label>
+              <label id="new-password-label" for="new-password"
+                >New Password:</label
+              >
               <input
                 type="password"
                 id="new-password"
@@ -106,7 +120,9 @@
                 required
               />
 
-              <label for="confirm-password">Confirm New Password:</label>
+              <label id="confirm-password-lable" for="confirm-password"
+                >Confirm New Password:</label
+              >
               <input
                 type="password"
                 id="confirm-password"

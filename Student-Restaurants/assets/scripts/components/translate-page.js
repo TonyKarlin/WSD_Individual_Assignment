@@ -38,6 +38,19 @@ const translatePage = (lang) => {
     '.label-confirm-password': 'labelConfirmPassword',
     '.account-text': 'signInParagraph',
     '.no-meals': 'noMeals',
+    '.profile-info-header': 'profileInfoHeader',
+    '#username-display': 'labelUsername',
+    '#email-display': 'labelEmail',
+    '#profile-logout-button': 'logout',
+    '#profile-info-logout-button': 'logout',
+    '#username-form label': 'changeUsernameLabel',
+    '#save-username-button': 'saveUsernameButton',
+    '#confirm-password-lable': 'labelConfirmPassword',
+    '#new-password-label': 'newPasswordInput',
+    '#current-password-label': 'currentPasswordInput',
+    '#save-password-button': 'savePasswordButton',
+    '#delete-account-button': 'deleteAccountButton',
+    '.profile-modification h2': 'profileSettingsHeader',
   };
 
   Object.entries(elementsToTranslate).forEach(([selector, key]) => {

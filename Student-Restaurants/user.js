@@ -1,6 +1,8 @@
 'use strict';
 
+import {langDDHandler} from './assets/scripts/components/lang-icons.js';
 import {logout} from './assets/scripts/components/logout.js';
+import {handleLanguageChange} from './assets/scripts/components/translate-page.js';
 import {
   validatePassword,
   validateUsername,
@@ -14,8 +16,8 @@ const getUserName = () => {
 
 const getUserInfoElements = () => {
   const userDataElems = {
-    username: document.querySelector('#username-display'),
-    email: document.querySelector('#email-display'),
+    username: document.querySelector('#current-username'),
+    email: document.querySelector('#current-email'),
   };
   return userDataElems;
 };
@@ -200,6 +202,8 @@ const changePasswordHandler = () => {
 };
 
 const initialize = () => {
+  langDDHandler();
+  handleLanguageChange();
   userNameHandler();
   changePasswordHandler();
   getUserInfo();
