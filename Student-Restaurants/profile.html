@@ -4,16 +4,134 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Profile</title>
     <link
-      rel="icon"
-      type="image/x-icon"
-      href="C:\Users\tontt\VS_Projects\WSD_Individual_Assignment\Student-Restaurants\resources\icon.png"
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
     />
-    <script src="profile.js" defer></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link rel="icon" type="image/x-icon" href="resources/icon.png" />
+    <link rel="stylesheet" href="assets/styles/stylesheet.css" />
+    <link rel="stylesheet" href="assets/styles/profile.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"
+    />
+    <script src="user.js" type="module"></script>
   </head>
-
   <body>
-    <h1>Sample Page</h1>
+    <div class="app">
+      <header class="app-header">
+        <div class="logo">
+          <img
+            href="./index.html"
+            src="resources/icon.png"
+            alt="Logo"
+            width="80"
+            height="80"
+          />
+        </div>
+        <div class="logo-text">
+          <h1 class="page-title">Student Restaurants</h1>
+          <p class="welcome-text">
+            Find your nearest student restaurant and enjoy discounted meals with
+            Tuudo
+          </p>
+        </div>
+        <div class="nav-bar">
+          <nav class="nav-menu">
+            <ul class="nav-list">
+              <li><a href="index.html" id="home-link">Home</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="lang">
+          <span id="lang-icon" class="fi fi-gb"></span>
+          <p>▼</p>
+          <div class="lang-dropdown" style="display: none"></div>
+        </div>
+        <div class="login-link" style="display: none">
+          <a href="login.html" id="login-link">Sign In</a>
+          <p>|</p>
+          <a href="register.html" id="register-link">Register</a>
+        </div>
+        <div class="user-profile">
+          <span class="user-img-container"></span>
+          <div class="user-wrapper">
+            <span class="user-name"></span>
+            <button type="button" id="profile-logout-button">Logout</button>
+          </div>
+        </div>
+      </header>
+      <main class="application-main">
+        <div class="profile-container">
+          <div class="profile-info">
+            <h3>Profile Information</h3>
+            <p id="username-display">Username:</p>
+            <p id="email-display">Email:</p>
+            <button type="button" id="profile-logout-button">Logout</button>
+          </div>
+
+          <div class="profile-modification">
+            <h2>Profile Settings</h2>
+
+            <form class="profile-form" id="username-form">
+              <label for="username">Change Username:</label>
+              <input type="text" id="username" name="username" />
+              <button type="submit" id="save-username-button">
+                Save Username
+              </button>
+            </form>
+
+            <form class="profile-form" id="password-form">
+              <label for="current-password">Current Password:</label>
+              <input
+                type="password"
+                id="current-password"
+                name="current-password"
+                required
+              />
+
+              <label for="new-password">New Password:</label>
+              <input
+                type="password"
+                id="new-password"
+                name="new-password"
+                required
+              />
+
+              <label for="confirm-password">Confirm New Password:</label>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                required
+              />
+
+              <button type="submit" id="save-password-button">
+                Save Password
+              </button>
+            </form>
+            <div class="delete-account-container">
+              <button type="button" id="delete-account-button">
+                Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="footer-wrapper">
+        <footer class="app-footer">
+          <p class="copyright">&copy;2025</p>
+          <p class="footer-text">Student Restaurants</p>
+        </footer>
+      </div>
+    </div>
   </body>
 </html>

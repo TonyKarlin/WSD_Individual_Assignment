@@ -3,6 +3,10 @@ import {
   handleLanguageChange,
   translatePage,
 } from './assets/scripts/components/translate-page.js';
+import {
+  validatePassword,
+  validateUsername,
+} from './assets/scripts/lib/validations.js';
 
 const elements = document.querySelectorAll('.logo img, h1');
 
@@ -13,16 +17,6 @@ elements.forEach((element) => {
 });
 
 const loginForm = document.querySelector('.login-form');
-
-const validateUsername = (input) => {
-  const usernamePattern = /^[a-zA-Z0-9]{3,}$/;
-  return usernamePattern.test(input);
-};
-
-const validatePassword = (password) => {
-  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
-  return passwordPattern.test(password);
-};
 
 const handleLogin = () => {
   loginForm.addEventListener('submit', async (event) => {

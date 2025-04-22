@@ -3,7 +3,6 @@ import {
   populateRestaurantTable,
   restaurants,
 } from './assets/scripts/components/restaurants.js';
-import personalizeUserImg from './assets/scripts/components/user.js';
 import {
   addRestaurantsToMap,
   getMap,
@@ -23,6 +22,8 @@ import {
   handleLanguageChange,
   translatePage,
 } from './assets/scripts/components/translate-page.js';
+import {updateUIForLoggedInUser} from './assets/scripts/view/user-profile-elements.js';
+import {logout} from './assets/scripts/components/logout.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -59,10 +60,15 @@ const main = async () => {
     }
 
     logoNavigation();
-    personalizeUserImg();
     createCheckBoxes();
     createCityDropdown();
     handleLanguageChange();
+    updateUIForLoggedInUser();
+
+    const logoutButton = document.querySelector('#home-logout-button');
+    if (logoutButton) {
+      logoutButton.addEventListener('click', logout);
+    }
   } catch (e) {
     console.error('Main error: ', e);
   }

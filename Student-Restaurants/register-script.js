@@ -3,6 +3,11 @@ import {
   handleLanguageChange,
   translatePage,
 } from './assets/scripts/components/translate-page.js';
+import {
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from './assets/scripts/lib/validations.js';
 
 const elements = document.querySelectorAll('.logo img, h1');
 
@@ -13,19 +18,6 @@ elements.forEach((element) => {
 });
 
 const registrationForm = document.querySelector('.register-form');
-
-const validateEmail = (email) => {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailPattern.test(email);
-};
-const validatePassword = (password) => {
-  const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
-  return passwordPattern.test(password);
-};
-const validateUsername = (username) => {
-  const usernamePattern = /^[a-zA-Z0-9]{3,}$/;
-  return usernamePattern.test(username);
-};
 
 const registerUser = () => {
   registrationForm.addEventListener('submit', async (event) => {

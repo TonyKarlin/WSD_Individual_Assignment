@@ -111,13 +111,17 @@ body {
 }
 
 .user-profile {
-  display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-right: 1rem;
   margin-left: auto;
+  padding: 0 10px 0 10px;
   width: 10%;
   justify-content: center;
   align-items: center;
+}
+
+.user-profile h2 {
+  margin: 0;
 }
 
 .user-img-container {
@@ -139,15 +143,40 @@ body {
 }
 
 .user-name {
+  width: 80%;
   margin-top: 5px;
-  padding: 3px;
+  padding: 5px;
   color: #dfdcdc;
   font-size: 14px;
   cursor: pointer;
   border: solid 2px #202020;
+  border-radius: 8px;
+  background-color: #242424;
 }
 
 .user-name:hover {
+  color: #ffffff;
+}
+
+.user-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 8px;
+}
+
+#home-logout-button {
+  width: 90%;
+  margin-top: 10px;
+  padding: 5px;
+  align-self: center;
+  color: #dfdcdc;
+  cursor: pointer;
+  border: solid 1px #202020;
+  border-radius: 8px;
+  background-color: #9a0404;
+}
+
+#home-logout-button:hover {
   color: #ffffff;
 }
 
