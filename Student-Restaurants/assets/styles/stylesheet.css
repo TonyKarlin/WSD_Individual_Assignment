@@ -294,22 +294,22 @@ body {
   margin-right: 5px;
 }
 
-.login-link {
+.account-links {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 0 1rem 0 1rem;
 }
 
-.login-link a {
+.account-links a {
   color: whitesmoke;
 }
 
-.login-link a:hover {
+.account-links a:hover {
   color: #631a63;
 }
 
-.login-link p {
+.account-links p {
   margin: 0 5px 0 5px;
   font-size: 32;
 }
