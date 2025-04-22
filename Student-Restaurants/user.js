@@ -209,7 +209,7 @@ const initialize = () => {
   getUserInfo();
   updateUIForLoggedInUser();
 
-  const logoutButton = document.querySelector('#profile-logout-button');
+  const logoutButton = document.querySelector('#profile-info-logout-button');
   if (logoutButton) {
     logoutButton.addEventListener('click', logout);
   }
