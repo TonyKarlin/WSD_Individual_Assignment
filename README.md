@@ -10,7 +10,11 @@ For more information about the [backend](https://github.com/TonyKarlin/WSD_Indiv
 
 ### Features
 
-- Responsive design for various screen sizes.
+- User registration and login.
+- Modifying user data.
+- Filtering restaurants
+- Finding the nearest restaurant to you.
+- Searching for weekly menu of the restaurants.
 - Dynamic content rendering using JavaScript.
 - Integration with external APIs for real-time data.
 - User-friendly navigation and interface.
@@ -20,7 +24,3 @@ For more information about the [backend](https://github.com/TonyKarlin/WSD_Indiv
 ### Screenshot of the web page
 
 ![Home page of the web page](./Student-Restaurants/resources/project-image.png)
-
-#### Known issues currently
-
-Login stopped working for some odd reason, so the registration doesn't do much for now.
