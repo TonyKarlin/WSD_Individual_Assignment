@@ -1,7 +1,7 @@
 'use strict';
 
 import {langDDHandler} from './assets/scripts/components/lang-icons.js';
-import {logout} from './assets/scripts/components/logout.js';
+import {logoutButtonHandler} from './assets/scripts/components/logout.js';
 import {handleLanguageChange} from './assets/scripts/components/translate-page.js';
 import {
   validatePassword,
@@ -209,10 +209,7 @@ const initialize = () => {
   getUserInfo();
   updateUIForLoggedInUser();
 
-  const logoutButton = document.querySelector('#profile-info-logout-button');
-  if (logoutButton) {
-    logoutButton.addEventListener('click', logout);
-  }
+  logoutButtonHandler('#profile-logout-button', '#profile-info-logout-button');
 
   const deleteButton = document.querySelector('#delete-account-button');
   if (deleteButton) {

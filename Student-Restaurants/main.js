@@ -23,7 +23,10 @@ import {
   translatePage,
 } from './assets/scripts/components/translate-page.js';
 import {updateUIForLoggedInUser} from './assets/scripts/view/user-profile-elements.js';
-import {logout} from './assets/scripts/components/logout.js';
+import {
+  logout,
+  logoutButtonHandler,
+} from './assets/scripts/components/logout.js';
 
 const logoNavigation = () => {
   const logo = document.querySelector('.logo');
@@ -65,10 +68,7 @@ const main = async () => {
     handleLanguageChange();
     updateUIForLoggedInUser();
 
-    const logoutButton = document.querySelector('#home-logout-button');
-    if (logoutButton) {
-      logoutButton.addEventListener('click', logout);
-    }
+    logoutButtonHandler('#home-logout-button');
   } catch (e) {
     console.error('Main error: ', e);
   }
