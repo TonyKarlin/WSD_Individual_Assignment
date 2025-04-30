@@ -105,7 +105,7 @@ const deleteUser = async () => {
   }
 
   const response = await fetch(
-    `https://10.120.32.74/web-page/api/v1/users${id}`,
+    `https://10.120.32.74/web-page/api/v1/users/${id}`,
     {
       method: 'DELETE',
       headers: {
